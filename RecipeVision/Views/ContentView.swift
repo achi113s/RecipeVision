@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var cameraModel = CameraViewModel()
     @State private var presentCameraView: Bool = false
     
     var body: some View {
@@ -44,10 +43,7 @@ struct ContentView: View {
                 }
                 .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
                 .sheet(isPresented: $presentCameraView) {
-                    ZStack {
-                        FrameView(image: cameraModel.frame, error: cameraModel.error)
-                    }
-                    .edgesIgnoringSafeArea(.all)
+                    CameraView()
                 }
         }
     }

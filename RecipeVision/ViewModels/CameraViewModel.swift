@@ -2,33 +2,73 @@
 //  CameraViewModel.swift
 //  RecipeVision
 //
-//  Created by Giorgio Latour on 9/7/23.
+//  Created by Giorgio Latour on 9/9/23.
 //
 
-import CoreImage
+import Combine
+import AVFoundation
 
-class CameraViewModel: ObservableObject {
-    @Published var frame: CGImage?
-    @Published var error: Error?
+final class CameraViewModel: ObservableObject {
+    private let service = CameraService()
     
-    private let cameraManager = CameraManager.shared
-    private let frameManager = FrameManager.shared
+    @Published var photo: Photo!
+    
+    @Published var showAlertError = false
+    
+    @Published var isFlashOn = false
+    
+    @Published var willCapturePhoto = false
+    
+    var alertError: AlertError!
+    
+    var session: AVCaptureSession
+    
+    private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        setupSubscriptions()
+        self.session = service.session
+        
+        service.$photo.sink { [weak self] photo in
+            guard let pic = photo else { return }
+            self?.photo = pic
+        }
+        .store(in: &self.subscriptions)
+        
+        service.$shouldShowAlertView.sink { [weak self] show in
+            self?.alertError = self?.service.alertError
+            self?.showAlertError = show
+        }
+        .store(in: &self.subscriptions)
+        
+        service.$flashMode.sink { [weak self] (mode) in
+            self?.isFlashOn = mode == .on
+        }
+        .store(in: &self.subscriptions)
+        
+        service.$willCapturePhoto.sink { [weak self] (val) in
+            self?.willCapturePhoto = val
+        }
+        .store(in: &self.subscriptions)
     }
     
-    func setupSubscriptions() {
-        cameraManager.$error
-            .receive(on: RunLoop.main)
-            .map { $0 }
-            .assign(to: &$error)
-        
-        frameManager.$current
-            .receive(on: RunLoop.main)
-            .compactMap { buffer in
-                return CGImage.create(from: buffer)
-            }
-            .assign(to: &$frame)
+    func configure() {
+        service.checkForPermissions()
+        service.configure()
+    }
+    
+    func capturePhoto() {
+        service.capturePhoto()
+    }
+    
+    func flipCamera() {
+        service.changeCamera()
+    }
+    
+    func zoom(with factor: CGFloat) {
+        service.set(zoom: factor)
+    }
+    
+    func switchFlash() {
+        service.flashMode = service.flashMode == .on ? .off : .on
     }
 }
