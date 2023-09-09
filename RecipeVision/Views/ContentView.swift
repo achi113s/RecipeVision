@@ -45,8 +45,7 @@ struct ContentView: View {
                 .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
                 .sheet(isPresented: $presentCameraView) {
                     ZStack {
-                        FrameView(image: cameraModel.frame)
-                        ErrorView(error: cameraModel.error)
+                        FrameView(image: cameraModel.frame, error: cameraModel.error)
                     }
                     .edgesIgnoringSafeArea(.all)
                 }

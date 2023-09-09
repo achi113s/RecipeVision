@@ -11,7 +11,7 @@ import SwiftUI
 struct RecipeVisionApp: App {
     var body: some Scene {
         WindowGroup {
-            ResizableSquare()
+            ContentView()
         }
     }
 }

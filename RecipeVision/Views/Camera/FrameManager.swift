@@ -30,6 +30,7 @@ extension FrameManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         if let buffer = sampleBuffer.imageBuffer {
             DispatchQueue.main.async {
                 self.current = buffer
+                print("new buffer")
             }
         }
     }

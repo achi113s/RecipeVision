@@ -46,8 +46,6 @@ struct ErrorView: View {
         .background(Color.red.edgesIgnoringSafeArea(.top))
         .opacity(error == nil ? 0.0 : 1.0)
         .animation(.easeInOut, value: 0.25)
-
-      Spacer()
     }
   }
 }

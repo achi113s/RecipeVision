@@ -89,9 +89,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44518BE52AAC02A000AC615F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				44E6995B2AA588A50071742C /* ContentView.swift */,
+				44DC37462AA8261E0095E985 /* PlaceholderView.swift */,
+				44DC375B2AABCDF80095E985 /* ResizableSquare.swift */,
+				44DC374A2AA989640095E985 /* Camera */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		44DC374A2AA989640095E985 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				44DC37592AAA81C90095E985 /* ErrorView.swift */,
 				44DC374D2AA989B20095E985 /* CameraError.swift */,
 				44DC37502AA98A2A0095E985 /* FrameView.swift */,
 				44DC37522AA98B8A0095E985 /* CameraManager.swift */,
@@ -139,16 +151,12 @@
 		44E699582AA588A50071742C /* RecipeVision */ = {
 			isa = PBXGroup;
 			children = (
-				44DC37562AAA7FAE0095E985 /* ViewModels */,
-				44DC374A2AA989640095E985 /* Camera */,
-				44DC374F2AA989BD0095E985 /* Extensions */,
 				44E699592AA588A50071742C /* RecipeVisionApp.swift */,
-				44E6995B2AA588A50071742C /* ContentView.swift */,
+				44518BE52AAC02A000AC615F /* Views */,
+				44DC37562AAA7FAE0095E985 /* ViewModels */,
+				44DC374F2AA989BD0095E985 /* Extensions */,
 				44E6995D2AA588A60071742C /* Assets.xcassets */,
 				44E6995F2AA588A60071742C /* Preview Content */,
-				44DC37462AA8261E0095E985 /* PlaceholderView.swift */,
-				44DC37592AAA81C90095E985 /* ErrorView.swift */,
-				44DC375B2AABCDF80095E985 /* ResizableSquare.swift */,
 			);
 			path = RecipeVision;
 			sourceTree = "<group>";

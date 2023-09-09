@@ -43,21 +43,19 @@ struct ResizableSquare: View {
     }
     
     var body: some View {
-        VStack {
-            ZStack(alignment: .bottomTrailing) {
-                Rectangle()
-                    .stroke(style: .init(lineWidth: 2, dash: [5]))
-                    .fill(Color.yellow)
-                    .contentShape(Rectangle())
-                    .frame(width: self.width * magnification, height: self.height * magnification)
-                    .position(self.location)
-                    .gesture(
-                        simpleDrag
-                    )
-                    .gesture(
-                        magnificationEffect
-                    )
-            }
+        ZStack(alignment: .bottomTrailing) {
+            Rectangle()
+                .stroke(style: .init(lineWidth: 2, dash: [5]))
+                .fill(Color.yellow)
+                .contentShape(Rectangle())
+                .frame(width: self.width * magnification, height: self.height * magnification)
+                .position(self.location)
+                .gesture(
+                    simpleDrag
+                )
+                .gesture(
+                    magnificationEffect
+                )
         }
     }
 }
