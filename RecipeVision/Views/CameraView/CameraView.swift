@@ -10,7 +10,10 @@ import SwiftUI
 struct CameraView: View {
     @StateObject var model = CameraViewModel()
     
-    @State var currentZoomFactor: CGFloat = 1.0
+    @State private var currentZoomFactor: CGFloat = 1.0
+    @GestureState private var startZooming: CGFloat? = nil
+    
+    @State private var showPreviewModal: Bool = false
     
     var captureButton: some View {
         Button(action: {
@@ -19,110 +22,78 @@ struct CameraView: View {
             Circle()
                 .foregroundColor(.white)
                 .frame(width: 80, height: 80, alignment: .center)
-                .overlay(
-                    Circle()
-                        .stroke(Color.black.opacity(0.8), lineWidth: 2)
-                        .frame(width: 65, height: 65, alignment: .center)
-                )
         })
     }
     
-    var capturedPhotoThumbnail: some View {
-        Group {
-            if model.photo != nil {
-                Image(uiImage: model.photo.image!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                    .animation(.spring())
-            } else {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 60, height: 60, alignment: .center)
-                    .foregroundColor(.black)
+    var zoomGesture: some Gesture {
+        MagnificationGesture()
+            .onChanged { magValue in
+                // Constrain zoom factor between 1x and 2x.
+                currentZoomFactor = min(max(magValue.magnitude, 1), 5)
+                model.zoom(with: currentZoomFactor)
             }
-        }
-    }
-    
-    var flipCameraButton: some View {
-        Button(action: {
-            model.flipCamera()
-        }, label: {
-            Circle()
-                .foregroundColor(Color.gray.opacity(0.2))
-                .frame(width: 45, height: 45, alignment: .center)
-                .overlay(
-                    Image(systemName: "camera.rotate.fill")
-                        .foregroundColor(.white))
-        })
+            .updating($startZooming) { value, startZooming, transaction in
+                startZooming = startZooming ?? currentZoomFactor
+            }
     }
     
     var body: some View {
         GeometryReader { reader in
             ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
+                CameraPreview(session: model.session)
+                    .ignoresSafeArea()
+                    .scaledToFill()
+                    .frame(
+                        width: reader.size.width,
+                        height: reader.size.height
+                    )
+                    .onAppear {
+                        model.configure()
+                    }
+                    .alert(isPresented: $model.showAlertError, content: {
+                        Alert(title: Text(model.alertError.title), message: Text(model.alertError.message), dismissButton: .default(Text(model.alertError.primaryButtonTitle), action: {
+                            model.alertError.primaryAction?()
+                        }))
+                    })
+                    .overlay(
+                        Group {
+                            if model.willCapturePhoto {
+                                Color.black
+                            }
+                        }
+                    )
+                    .gesture(
+                        zoomGesture
+                    )
                 
                 VStack {
                     Button(action: {
                         model.switchFlash()
                     }, label: {
-                        Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
-                            .font(.system(size: 20, weight: .medium, design: .default))
+                        ZStack {
+                            Capsule()
+                                .foregroundStyle(.black)
+                                .frame(width: 75, height: 40)
+                                .opacity(0.3)
+                            Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
+                                .font(.system(size: 20, weight: .medium, design: .default))
+                        }
                     })
                     .accentColor(model.isFlashOn ? .yellow : .white)
                     
-                    CameraPreview(session: model.session)
-                        .gesture(
-                            DragGesture().onChanged({ (val) in
-                                //  Only accept vertical drag
-                                if abs(val.translation.height) > abs(val.translation.width) {
-                                    //  Get the percentage of vertical screen space covered by drag
-                                    let percentage: CGFloat = -(val.translation.height / reader.size.height)
-                                    //  Calculate new zoom factor
-                                    let calc = currentZoomFactor + percentage
-                                    //  Limit zoom factor to a maximum of 5x and a minimum of 1x
-                                    let zoomFactor: CGFloat = min(max(calc, 1), 5)
-                                    //  Store the newly calculated zoom factor
-                                    currentZoomFactor = zoomFactor
-                                    //  Sets the zoom factor to the capture device session
-                                    model.zoom(with: zoomFactor)
-                                }
-                            })
-                        )
-                        .onAppear {
-                            model.configure()
-                        }
-                        .alert(isPresented: $model.showAlertError, content: {
-                            Alert(title: Text(model.alertError.title), message: Text(model.alertError.message), dismissButton: .default(Text(model.alertError.primaryButtonTitle), action: {
-                                model.alertError.primaryAction?()
-                            }))
-                        })
-                        .overlay(
-                            Group {
-                                if model.willCapturePhoto {
-                                    Color.black
-                                }
-                            }
-                        )
-                        .animation(.easeInOut)
-                    
+                    Spacer()
                     
                     HStack {
-                        capturedPhotoThumbnail
-                        
-                        Spacer()
-                        
                         captureButton
-                        
-                        Spacer()
-                        
-                        flipCameraButton
-                        
                     }
                     .padding(.horizontal, 20)
                 }
-                .padding(.top, 15)
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+        }
+        .onDisappear {
+            model.session.stopRunning()
         }
     }
 }
