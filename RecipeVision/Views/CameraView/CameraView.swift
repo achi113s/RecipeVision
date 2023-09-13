@@ -104,14 +104,10 @@ struct CameraView: View {
                 }
             }
             .onAppear {
-                if !model.session.isRunning {
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        model.session.startRunning()
-                    }
-                }
+                model.safelyRestartSession()
             }
             .onDisappear {
-                model.session.stopRunning()
+                model.safelyStopSession()
             }
         }
     }

@@ -71,4 +71,16 @@ final class CameraViewModel: ObservableObject {
     func switchFlash() {
         service.flashMode = service.flashMode == .on ? .off : .on
     }
+    
+    func safelyStopSession() {
+        session.stopRunning()
+    }
+    
+    func safelyRestartSession() {
+        if !session.isRunning && service.isConfigured {
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.session.startRunning()
+            }
+        }
+    }
 }
