@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ImageWithROI: View {
+    var image: Image? = nil
+    
     @State private var width: CGFloat = 100
     @State private var height: CGFloat = 100
     
@@ -23,6 +25,7 @@ struct ImageWithROI: View {
                 newLocation.x = newLocation.x + dragValue.translation.width
                 newLocation.y = newLocation.y + dragValue.translation.height
                 self.location = newLocation
+                print(location)
             }
             .updating($startLocation) { dragValue, startLocation, transaction in
                 startLocation = startLocation ?? location
@@ -32,47 +35,66 @@ struct ImageWithROI: View {
     var resizeDrag: some Gesture {
         DragGesture()
             .onChanged { dragValue in
-                self.width = min(max(100, self.width + dragValue.translation.width), 400)
-                self.height = min(max(100, self.height + dragValue.translation.height), 400)
+                self.width = min(max(100, self.width + dragValue.translation.width), 430)
+                self.height = min(max(100, self.height + dragValue.translation.height), 430)
             }
     }
     
     var body: some View {
-        ZStack {
-            Image("choonsik")
-                .resizable()
-                .scaledToFit()
-            
-            VStack {
-                // This is the view that's going to be resized by the gesture.
-                ZStack(alignment: .bottomTrailing) {
-                    Rectangle()
-                        .stroke(style: .init(lineWidth: 2, dash: [5]))
-                        .fill(.yellow)
-                        .contentShape(Rectangle())
-                        .frame(width: width, height: height)
-                    // This is the "drag handle" positioned on the lower-left corner of this stack.
-                    Rectangle()
-                        .fill(.yellow)
-                        .frame(width: 30, height: 30)
-                        .gesture(
-                            resizeDrag
-                        )
+        VStack {
+            ZStack {
+                if let image = image {
+                    image
+                        .resizable()
+                        .scaledToFit()
                 }
-                .frame(width: width, height: height, alignment: .topLeading)
-                .padding()
-                .position(x: location.x, y: location.y)
-                .gesture(
-                    simpleDrag
-                )
+                
+                VStack {
+                    // This is the view that's going to be resized by the gesture.
+                    GeometryReader { geometry in
+                        ZStack(alignment: .bottomTrailing) {
+                            Rectangle()
+                                .stroke(style: .init(lineWidth: 2, dash: [5]))
+                                .fill(.yellow)
+                                .contentShape(Rectangle())
+                                .frame(width: width, height: height)
+                            // This is the "drag handle" positioned on the lower-left corner of this stack.
+                            Rectangle()
+                                .fill(.yellow)
+                                .frame(width: 30, height: 30)
+                                .gesture(
+                                    resizeDrag
+                                )
+                        }
+                        .frame(width: width, height: height, alignment: .topLeading)
+                        .padding()
+                        .position(x: location.x, y: location.y)
+                        .gesture(
+                            simpleDrag
+                        )
+                    }
+                    .frame(width: 430, height: 430)
+                }
             }
-            .frame(width: 430, height: 430)
+            
+            Button {
+                print(CGRect(origin: CGPoint(x: location.x, y: location.y), size: CGSize(width: width, height: height)))
+            } label: {
+                ZStack {
+                    Capsule()
+                        .foregroundColor(.green.opacity(0.5))
+                        .frame(width: 140, height: 50)
+                    
+                    Text("Use Image")
+                }
+            }
+            
         }
     }
 }
 
 struct ImageWithROI_Previews: PreviewProvider {
     static var previews: some View {
-        ImageWithROI()
+        ImageWithROI(image: Image("choonsik"))
     }
 }

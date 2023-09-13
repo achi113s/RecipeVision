@@ -91,23 +91,19 @@ struct CameraView: View {
                     }
                     .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    
-                    if model.photo != nil {
-                        VStack {}
-                            .onAppear {
-                                path.append("PhotoPreview")
-                            }
+                    .onChange(of: model.photo) { _ in
+                        if model.photo != nil {
+                            path.append("PhotoPreview")
+                        }
                     }
                 }
             }
             .navigationDestination(for: String.self) { view in
                 if view == "PhotoPreview" {
-                    ImageWithROI()
+                    ImageWithROI(image: Image(uiImage: UIImage(data: model.photo.originalData)!))
                 }
             }
             .onAppear {
-//                model.photo = nil
-                
                 if !model.session.isRunning {
                     DispatchQueue.global(qos: .userInitiated).async {
                         model.session.startRunning()
