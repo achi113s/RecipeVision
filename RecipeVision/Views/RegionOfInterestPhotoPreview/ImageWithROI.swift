@@ -37,13 +37,43 @@ struct ImageWithROI: View {
     var resizeDrag: some Gesture {
         DragGesture()
             .onChanged { dragValue in
-                self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
-                self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
+                // When resizing, we want to constrain the location of the bounding
+                // box so that it still cannot go out of the image frame.
+                
+                // If the box is hitting the left or right edge, only allow making the width
+                // smaller (achieved by dragging toward the left).
+                if (location.x - width / 2) < 0 {
+                    guard dragValue.translation.width < 0 else { return }
+                    self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
+                } else if (location.x + width / 2) > imageSize.width {
+                    guard dragValue.translation.width < 0 else { return }
+                    self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
+                } else {
+                    self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
+                }
+                
+                // If the box is hitting the top or bottom edge, only allow making the height
+                // smaller (achieved by dragging toward the top).
+                if (location.y - height / 2) <= 0 {
+                    guard dragValue.translation.height < 0 else { return }
+                    self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
+                } else if (location.y + height / 2) > imageSize.width {
+                    guard dragValue.translation.height < 0 else { return }
+                    self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
+                } else {
+                    self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
+                }
             }
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 25) {
+            Text("Drag and resize the bounding box around your ingredients!")
+                .multilineTextAlignment(.center)
+                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                .foregroundColor(Color("AccentColor"))
+                .padding(.horizontal)
+            
             ZStack {
                 if let image = image {
                     image
@@ -95,7 +125,13 @@ struct ImageWithROI: View {
                         .foregroundColor(.green.opacity(0.5))
                         .frame(width: 140, height: 50)
                     
-                    Text("Use Image")
+                    HStack (spacing: 5) {
+                        Image(systemName: "sparkle.magnifyingglass")
+                            .foregroundColor(Color("AccentColor"))
+                        Text("Identify")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .foregroundColor(Color("AccentColor"))
+                    }
                 }
             }
         }
