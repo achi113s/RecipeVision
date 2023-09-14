@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */; };
+		44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */; };
+		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
 		44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */; };
 		44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFC2AACEA9A00215EFB /* CameraView.swift */; };
 		44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreferenceKey.swift; sourceTree = "<group>"; };
+		44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewModel.swift; sourceTree = "<group>"; };
+		44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image-Extensions.swift"; sourceTree = "<group>"; };
 		44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		44D5CCFC2AACEA9A00215EFB /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraService+Extensions.swift"; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 		44DC374F2AA989BD0095E985 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */,
+				44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 				44E6995C2AA588A50071742C /* ContentView.swift in Sources */,
 				44D5CD052AAD02A400215EFB /* CameraService+Enums.swift in Sources */,
 				44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */,
+				44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */,
 				442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */,
 				44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */,
 				44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */,
@@ -353,6 +360,7 @@
 				44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */,
 				44DC37472AA8261E0095E985 /* PlaceholderView.swift in Sources */,
 				44D5CD0A2AAD02E000215EFB /* CameraPreview.swift in Sources */,
+				44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */,
 				44D5CD082AAD02A400215EFB /* ImageResizer.swift in Sources */,
 				44E6995A2AA588A50071742C /* RecipeVisionApp.swift in Sources */,
 			);

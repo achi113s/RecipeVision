@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ImageWithROI: View {
-    var image: Image? = nil
+    @EnvironmentObject var visionModel: VisionViewModel
+    @Environment(\.dismiss) var dismiss
+    var image: Image
     
     @State private var width: CGFloat = 100
     @State private var height: CGFloat = 100
@@ -42,27 +44,19 @@ struct ImageWithROI: View {
                 
                 // If the box is hitting the left or right edge, only allow making the width
                 // smaller (achieved by dragging toward the left).
-                if (location.x - width / 2) < 0 {
+                if (location.x - width / 2) < 0 || (location.x + width / 2) > imageSize.width{
                     guard dragValue.translation.width < 0 else { return }
-                    self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
-                } else if (location.x + width / 2) > imageSize.width {
-                    guard dragValue.translation.width < 0 else { return }
-                    self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
-                } else {
-                    self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
                 }
+                
+                self.width = min(max(50, self.width + dragValue.translation.width), imageSize.width)
                 
                 // If the box is hitting the top or bottom edge, only allow making the height
                 // smaller (achieved by dragging toward the top).
-                if (location.y - height / 2) <= 0 {
+                if (location.y - height / 2) <= 0 || (location.y + height / 2) > imageSize.width {
                     guard dragValue.translation.height < 0 else { return }
-                    self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
-                } else if (location.y + height / 2) > imageSize.width {
-                    guard dragValue.translation.height < 0 else { return }
-                    self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
-                } else {
-                    self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
                 }
+                
+                self.height = min(max(50, self.height + dragValue.translation.height), imageSize.height)
             }
     }
     
@@ -75,17 +69,15 @@ struct ImageWithROI: View {
                 .padding(.horizontal)
             
             ZStack {
-                if let image = image {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .overlay {
-                            GeometryReader { geo in
-                                Color.clear
-                                    .updateImageSizePreferenceKey(geo.size)
-                            }
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .overlay {
+                        GeometryReader { geo in
+                            Color.clear
+                                .updateImageSizePreferenceKey(geo.size)
                         }
-                }
+                    }
                 
                 VStack {
                     // This is the view that's going to be resized by the gesture.
@@ -118,7 +110,8 @@ struct ImageWithROI: View {
             Button {
                 print(CGRect(origin: CGPoint(x: location.x, y: location.y), size: CGSize(width: width, height: height)))
                 print(convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: width, height: height), imageSize: imageSize))
-                
+                visionModel.setImageToProcess(image)
+                dismiss()
             } label: {
                 ZStack {
                     Capsule()
@@ -152,7 +145,7 @@ struct ImageWithROI: View {
          left corner is the origin rather than the top left corner of the image.
          The origin of the bounding box is in its center, so we divide width and height by 2 to
          get the location of the lower left corner.
-        */
+         */
         let newOriginX = boxLocation.x - (boxSize.width / 2)
         let newOriginY = imageSize.height - (boxLocation.y + (boxSize.height / 2))
         print("newOriginX: \(newOriginX), newOriginY: \(newOriginY)")

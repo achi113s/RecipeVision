@@ -9,9 +9,11 @@ import SwiftUI
 
 struct CameraView: View {
     @StateObject var model = CameraViewModel()
+    @EnvironmentObject var visionModel: VisionViewModel
     
     @State private var currentZoomFactor: CGFloat = 1.0
     @GestureState private var startZooming: CGFloat? = nil
+    @State private var shouldShowMagnificationProgress: Bool = false
     
     @State private var path = NavigationPath()
     
@@ -28,9 +30,18 @@ struct CameraView: View {
     var zoomGesture: some Gesture {
         MagnificationGesture()
             .onChanged { magValue in
-                // Constrain zoom factor between 1x and 2x.
-                currentZoomFactor = min(max(magValue.magnitude, 1), 5)
+                // Constrain zoom factor between 1x and 5x.
+                currentZoomFactor = min(max(magValue, 1), 5)
                 model.zoom(with: currentZoomFactor)
+                if currentZoomFactor > 1 {
+                    withAnimation {
+                        shouldShowMagnificationProgress = true
+                    }
+                } else {
+                    withAnimation {
+                        shouldShowMagnificationProgress = false
+                    }
+                }
             }
             .updating($startZooming) { value, startZooming, transaction in
                 startZooming = startZooming ?? currentZoomFactor
@@ -51,11 +62,11 @@ struct CameraView: View {
                         .onAppear {
                             model.configure()
                         }
-                        .alert(isPresented: $model.showAlertError, content: {
-                            Alert(title: Text(model.alertError.title), message: Text(model.alertError.message), dismissButton: .default(Text(model.alertError.primaryButtonTitle), action: {
-                                model.alertError.primaryAction?()
-                            }))
-                        })
+//                        .alert(isPresented: $model.showAlertError, content: {
+//                            Alert(title: Text(model.alertError.title), message: Text(model.alertError.message), dismissButton: .default(Text(model.alertError.primaryButtonTitle), action: {
+//                                model.alertError.primaryAction?()
+//                            }))
+//                        })
                         .overlay(
                             Group {
                                 if model.willCapturePhoto {
@@ -84,10 +95,27 @@ struct CameraView: View {
                         
                         Spacer()
                         
-                        HStack {
-                            captureButton
+                        VStack {
+                            HStack {
+                                Text("-")
+                                    .foregroundColor(.yellow)
+                                    .font(.system(size: 30, weight: .semibold, design: .rounded))
+
+                                ProgressView(value: currentZoomFactor - 1, total: CGFloat(4))
+                                    .foregroundColor(.yellow)
+                                    .offset(y: 2)
+
+                                Text("+")
+                                    .foregroundColor(.yellow)
+                                    .font(.system(size: 30, weight: .semibold, design: .rounded))
+                            }
+                            .padding(EdgeInsets(top: 0, leading: 25, bottom: 50, trailing: 25))
+                            .opacity(shouldShowMagnificationProgress ? 1.0 : 0.0)
+                            
+                            HStack {
+                                captureButton
+                            }
                         }
-                        .padding(.horizontal, 20)
                     }
                     .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

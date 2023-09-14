@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var visionModel: VisionViewModel = VisionViewModel()
+    
     @State private var presentCameraView: Bool = false
     
     var body: some View {
@@ -16,9 +18,9 @@ struct ContentView: View {
                 .toolbar {
                     Group {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            Text("Recipe Vision")
+                            Text("RecipeVision")
                                 .multilineTextAlignment(.center)
-                                .font(.system(size: 30, weight: .semibold, design: .rounded))
+                                .font(.system(size: 32, weight: .semibold, design: .rounded))
                                 .foregroundColor(Color("AccentColor"))
                         }
                         
@@ -27,6 +29,7 @@ struct ContentView: View {
                                 presentCameraView.toggle()
                             } label: {
                                 Image(systemName: "camera.on.rectangle")
+                                    .font(.system(size: 16, weight: .semibold, design: .rounded))
                                     .foregroundColor(Color("AccentColor"))
                             }
                         }
@@ -46,6 +49,7 @@ struct ContentView: View {
                     CameraView()
                 }
         }
+        .environmentObject(visionModel)
     }
 }
 
