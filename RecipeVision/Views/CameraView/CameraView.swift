@@ -62,11 +62,11 @@ struct CameraView: View {
                         .onAppear {
                             model.configure()
                         }
-//                        .alert(isPresented: $model.showAlertError, content: {
-//                            Alert(title: Text(model.alertError.title), message: Text(model.alertError.message), dismissButton: .default(Text(model.alertError.primaryButtonTitle), action: {
-//                                model.alertError.primaryAction?()
-//                            }))
-//                        })
+                        .alert(isPresented: $model.showAlertError, content: {
+                            Alert(title: Text(model.alertError.title), message: Text(model.alertError.message), dismissButton: .default(Text(model.alertError.primaryButtonTitle), action: {
+                                model.alertError.primaryAction?()
+                            }))
+                        })
                         .overlay(
                             Group {
                                 if model.willCapturePhoto {
