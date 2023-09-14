@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlaceholderView: View {
+struct ContentIsEmptyView: View {
     var body: some View {
         ZStack {
             Color("BackgroundColor")
@@ -15,7 +15,7 @@ struct PlaceholderView: View {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
                     VStack {
-                        Text("Tap the Camera icon to get started!")
+                        Text("Tap the camera icon to get started!")
                             .font(.system(size: 30, weight: .semibold, design: .rounded))
                             .foregroundColor(Color("AccentColor"))
                     }
@@ -29,6 +29,6 @@ struct PlaceholderView: View {
 
 struct PlaceholderView_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceholderView()
+        ContentIsEmptyView()
     }
 }
