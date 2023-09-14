@@ -21,7 +21,7 @@
 		44DC37472AA8261E0095E985 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DC37462AA8261E0095E985 /* PlaceholderView.swift */; };
 		44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DC375B2AABCDF80095E985 /* ImageWithROI.swift */; };
 		44E6995A2AA588A50071742C /* RecipeVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E699592AA588A50071742C /* RecipeVisionApp.swift */; };
-		44E6995C2AA588A50071742C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6995B2AA588A50071742C /* ContentView.swift */; };
+		44E6995C2AA588A50071742C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6995B2AA588A50071742C /* HomeView.swift */; };
 		44E6995E2AA588A60071742C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44E6995D2AA588A60071742C /* Assets.xcassets */; };
 		44E699612AA588A60071742C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44E699602AA588A60071742C /* Preview Assets.xcassets */; };
 		44E6996B2AA588A60071742C /* RecipeVisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6996A2AA588A60071742C /* RecipeVisionTests.swift */; };
@@ -62,7 +62,7 @@
 		44DC375B2AABCDF80095E985 /* ImageWithROI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithROI.swift; sourceTree = "<group>"; };
 		44E699562AA588A50071742C /* RecipeVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E699592AA588A50071742C /* RecipeVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeVisionApp.swift; sourceTree = "<group>"; };
-		44E6995B2AA588A50071742C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		44E6995B2AA588A50071742C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		44E6995D2AA588A60071742C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44E699602AA588A60071742C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44E699662AA588A60071742C /* RecipeVisionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeVisionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,7 +100,7 @@
 		44518BE52AAC02A000AC615F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				44E6995B2AA588A50071742C /* ContentView.swift */,
+				44E6995B2AA588A50071742C /* HomeView.swift */,
 				44DC37462AA8261E0095E985 /* PlaceholderView.swift */,
 				446042332AB02ACD0058CE8A /* RegionOfInterestPhotoPreview */,
 				44D5CD0F2AAD05C700215EFB /* CameraView */,
@@ -349,7 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44D5CD072AAD02A400215EFB /* CameraService.swift in Sources */,
-				44E6995C2AA588A50071742C /* ContentView.swift in Sources */,
+				44E6995C2AA588A50071742C /* HomeView.swift in Sources */,
 				44D5CD052AAD02A400215EFB /* CameraService+Enums.swift in Sources */,
 				44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */,
 				44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */,
