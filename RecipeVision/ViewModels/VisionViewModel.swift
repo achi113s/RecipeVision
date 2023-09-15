@@ -5,6 +5,7 @@
 //  Created by Giorgio Latour on 9/14/23.
 //
 
+import PhotosUI
 import SwiftUI
 
 class VisionViewModel: NSObject, ObservableObject {

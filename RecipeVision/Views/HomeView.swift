@@ -11,6 +11,7 @@ struct HomeView: View {
     @StateObject private var visionModel: VisionViewModel = VisionViewModel()
     
     @State private var presentCameraView: Bool = false
+    @State private var presentPhotosPicker: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -38,7 +39,7 @@ struct HomeView: View {
                             }
 
                             Button {
-                                print("select from photos")
+                                presentPhotosPicker = true
                             } label: {
                                 HStack {
                                     Text("Select from Photos")
@@ -67,6 +68,9 @@ struct HomeView: View {
             .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
             .sheet(isPresented: $presentCameraView) {
                 CameraView()
+            }
+            .sheet(isPresented: $presentPhotosPicker) {
+                ImagePicker()
             }
         }
         .environmentObject(visionModel)

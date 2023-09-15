@@ -10,6 +10,7 @@
 		442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */; };
 		44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */; };
 		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
+		44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577562AB380CD004E5D43 /* ImagePicker.swift */; };
 		44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */; };
 		44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFC2AACEA9A00215EFB /* CameraView.swift */; };
 		44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */; };
@@ -50,6 +51,7 @@
 		442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreferenceKey.swift; sourceTree = "<group>"; };
 		44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewModel.swift; sourceTree = "<group>"; };
 		44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image-Extensions.swift"; sourceTree = "<group>"; };
+		44A577562AB380CD004E5D43 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		44D5CCFC2AACEA9A00215EFB /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraService+Extensions.swift"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				44DC37462AA8261E0095E985 /* ContentIsEmptyView.swift */,
 				446042332AB02ACD0058CE8A /* RegionOfInterestPhotoPreview */,
 				44D5CD0F2AAD05C700215EFB /* CameraView */,
+				44A577552AB380C2004E5D43 /* ImagePicker */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,6 +118,14 @@
 				442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */,
 			);
 			path = RegionOfInterestPhotoPreview;
+			sourceTree = "<group>";
+		};
+		44A577552AB380C2004E5D43 /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				44A577562AB380CD004E5D43 /* ImagePicker.swift */,
+			);
+			path = ImagePicker;
 			sourceTree = "<group>";
 		};
 		44D5CCFE2AAD029B00215EFB /* CameraService */ = {
@@ -356,6 +367,7 @@
 				442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */,
 				44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */,
 				44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */,
+				44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */,
 				44D5CD062AAD02A400215EFB /* PhotoCaptureProcessor.swift in Sources */,
 				44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */,
 				44DC37472AA8261E0095E985 /* ContentIsEmptyView.swift in Sources */,
