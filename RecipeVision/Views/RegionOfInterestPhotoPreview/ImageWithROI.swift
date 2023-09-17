@@ -28,8 +28,8 @@ struct ImageWithROI: View {
                 var newLocation = startLocation ?? location
                 // Set a minimum and maximum constraint on the x and y location
                 // such that the bounding box cannot be dragged outside of the image frame.
-                newLocation.x = min(max(width / 2, newLocation.x + dragValue.translation.width), (imageSize.width - width / 2))
-                newLocation.y = min(max(height / 2, newLocation.y + dragValue.translation.height), (imageSize.height - height / 2))
+                newLocation.x = min(max(0, newLocation.x + dragValue.translation.width), (imageSize.width - width))
+                newLocation.y = min(max(0, newLocation.y + dragValue.translation.height), (imageSize.height - height))
                 self.location = newLocation
             }
             .updating($startLocation) { dragValue, startLocation, transaction in
@@ -45,7 +45,7 @@ struct ImageWithROI: View {
                 
                 // If the box is hitting the left or right edge, only allow making the width
                 // smaller (achieved by dragging toward the left).
-                if (location.x - width / 2) < 0 || (location.x + width / 2) > imageSize.width{
+                if (location.x + width) >= imageSize.width{
                     guard dragValue.translation.width < 0 else { return }
                 }
                 
@@ -53,7 +53,7 @@ struct ImageWithROI: View {
                 
                 // If the box is hitting the top or bottom edge, only allow making the height
                 // smaller (achieved by dragging toward the top).
-                if (location.y - height / 2) <= 0 || (location.y + height / 2) > imageSize.width {
+                if (location.y + height) >= imageSize.height {
                     guard dragValue.translation.height < 0 else { return }
                 }
                 
@@ -63,7 +63,7 @@ struct ImageWithROI: View {
     
     var body: some View {
         VStack(spacing: 25) {
-            Text("Drag and resize the bounding box around your ingredients!")
+            Text("Drag and resize the yellow box around your ingredients!")
                 .multilineTextAlignment(.center)
                 .font(.system(size: 20, weight: .semibold, design: .rounded))
                 .foregroundColor(Color("AccentColor"))
@@ -81,8 +81,10 @@ struct ImageWithROI: View {
                     }
                 
                 VStack {
-                    // This is the view that's going to be resized by the gesture.
+                    // The geometry reader resets the coordinate system so we can get the
+                    // location of the bounding box relative to the image.
                     GeometryReader { geometry in
+                        // This is the view that's going to be resized by the gesture.
                         ZStack(alignment: .bottomTrailing) {
                             Rectangle()
                                 .stroke(style: .init(lineWidth: 2, dash: [5]))
@@ -98,13 +100,12 @@ struct ImageWithROI: View {
                                 )
                         }
                         .frame(width: width, height: height, alignment: .topLeading)
-                        .padding()
-                        .position(x: location.x, y: location.y)
+                        .position(x: location.x + width / 2, y: location.y + height / 2)
                         .gesture(
                             simpleDrag
                         )
                     }
-                    .frame(width: imageSize.width, height: imageSize.height)
+                    .frame(width: imageSize.width, height: imageSize.height, alignment: .topLeading)
                 }
             }
             
@@ -146,11 +147,13 @@ struct ImageWithROI: View {
         /*
          Now calculate the x and y coordinate of the region of interest assuming the lower
          left corner is the origin rather than the top left corner of the image.
-         The origin of the bounding box is in its center, so we divide width and height by 2 to
-         get the location of the lower left corner.
+         The origin of the bounding box is in its top leading corner. So the x
+         is the same for the unnormalized and normalized regions.
+         For y, we need to calculate the
+         normalized coordinate of the lower left corner.
          */
-        let newOriginX = boxLocation.x - (boxSize.width / 2)
-        let newOriginY = imageSize.height - (boxLocation.y + (boxSize.height / 2))
+        let newOriginX = max(boxLocation.x, 0)
+        let newOriginY = max(imageSize.height - (boxLocation.y + boxSize.height), 0)
         print("newOriginX: \(newOriginX), newOriginY: \(newOriginY)")
         
         // Now normalize the new origin to the size of the input image.
@@ -164,8 +167,9 @@ struct ImageWithROI: View {
     }
 }
 
-//struct ImageWithROI_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ImageWithROI(image: Image("choonsik"))
-//    }
-//}
+struct ImageWithROI_Previews: PreviewProvider {
+    static let viewModel = ViewModel()
+    static var previews: some View {
+        ImageWithROI(viewModel: viewModel, image: UIImage(named: "choonsik")!)
+    }
+}
