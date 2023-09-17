@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct CameraView: View {
-    @StateObject var model = CameraViewModel()
+    @ObservedObject var viewModel: ViewModel
+    @StateObject var cameraModel = CameraViewModel()
     @EnvironmentObject var visionModel: VisionViewModel
     
     @State private var currentZoomFactor: CGFloat = 1.0
+    @State private var lastZoomFactor: CGFloat = 1.0
     @GestureState private var startZooming: CGFloat? = nil
     @State private var shouldShowMagnificationProgress: Bool = false
     
@@ -19,7 +21,7 @@ struct CameraView: View {
     
     var captureButton: some View {
         Button(action: {
-            model.capturePhoto()
+            cameraModel.capturePhoto()
         }, label: {
             Circle()
                 .foregroundColor(.white)
@@ -31,20 +33,14 @@ struct CameraView: View {
         MagnificationGesture()
             .onChanged { magValue in
                 // Constrain zoom factor between 1x and 5x.
-                currentZoomFactor = min(max(magValue, 1), 5)
-                model.zoom(with: currentZoomFactor)
-                if currentZoomFactor > 1 {
-                    withAnimation {
-                        shouldShowMagnificationProgress = true
-                    }
-                } else {
-                    withAnimation {
-                        shouldShowMagnificationProgress = false
-                    }
+                currentZoomFactor = min(max(lastZoomFactor * magValue, 1), 5)
+                cameraModel.zoom(with: currentZoomFactor)
+                withAnimation {
+                    shouldShowMagnificationProgress = currentZoomFactor > 1
                 }
             }
-            .updating($startZooming) { value, startZooming, transaction in
-                startZooming = startZooming ?? currentZoomFactor
+            .onEnded { value in
+                lastZoomFactor = currentZoomFactor
             }
     }
     
@@ -52,7 +48,7 @@ struct CameraView: View {
         NavigationStack(path: $path) {
             GeometryReader { geometry in
                 ZStack {
-                    CameraPreview(session: model.session)
+                    CameraPreview(session: cameraModel.session)
                         .ignoresSafeArea()
                         .scaledToFill()
                         .frame(
@@ -60,16 +56,16 @@ struct CameraView: View {
                             height: geometry.size.height
                         )
                         .onAppear {
-                            model.configure()
+                            cameraModel.configure()
                         }
-                        .alert(isPresented: $model.showAlertError, content: {
-                            Alert(title: Text(model.alertError.title), message: Text(model.alertError.message), dismissButton: .default(Text(model.alertError.primaryButtonTitle), action: {
-                                model.alertError.primaryAction?()
+                        .alert(isPresented: $cameraModel.showAlertError, content: {
+                            Alert(title: Text(cameraModel.alertError.title), message: Text(cameraModel.alertError.message), dismissButton: .default(Text(cameraModel.alertError.primaryButtonTitle), action: {
+                                cameraModel.alertError.primaryAction?()
                             }))
                         })
                         .overlay(
                             Group {
-                                if model.willCapturePhoto {
+                                if cameraModel.willCapturePhoto {
                                     Color.black
                                 }
                             }
@@ -80,18 +76,18 @@ struct CameraView: View {
                     
                     VStack {
                         Button(action: {
-                            model.switchFlash()
+                            cameraModel.switchFlash()
                         }, label: {
                             ZStack {
                                 Capsule()
                                     .foregroundStyle(.black)
                                     .frame(width: 75, height: 40)
                                     .opacity(0.3)
-                                Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
+                                Image(systemName: cameraModel.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
                                     .font(.system(size: 20, weight: .medium, design: .default))
                             }
                         })
-                        .accentColor(model.isFlashOn ? .yellow : .white)
+                        .accentColor(cameraModel.isFlashOn ? .yellow : .white)
                         
                         Spacer()
                         
@@ -100,16 +96,16 @@ struct CameraView: View {
                                 Text("-")
                                     .foregroundColor(.yellow)
                                     .font(.system(size: 30, weight: .semibold, design: .rounded))
-
+                                
                                 ProgressView(value: currentZoomFactor - 1, total: CGFloat(4))
-                                    .foregroundColor(.yellow)
+                                    .tint(.yellow)
                                     .offset(y: 2)
-
+                                
                                 Text("+")
                                     .foregroundColor(.yellow)
                                     .font(.system(size: 30, weight: .semibold, design: .rounded))
                             }
-                            .padding(EdgeInsets(top: 0, leading: 25, bottom: 50, trailing: 25))
+                            .padding(EdgeInsets(top: 0, leading: 25, bottom: 25, trailing: 25))
                             .opacity(shouldShowMagnificationProgress ? 1.0 : 0.0)
                             
                             HStack {
@@ -119,8 +115,8 @@ struct CameraView: View {
                     }
                     .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onChange(of: model.photo) { _ in
-                        if model.photo != nil {
+                    .onChange(of: cameraModel.photo) { _ in
+                        if cameraModel.photo != nil {
                             path.append("PhotoPreview")
                         }
                     }
@@ -128,21 +124,22 @@ struct CameraView: View {
             }
             .navigationDestination(for: String.self) { view in
                 if view == "PhotoPreview" {
-                    ImageWithROI(image: Image(uiImage: UIImage(data: model.photo.originalData)!))
+//                    ImageWithROI(viewModel: viewModel, image: Image(uiImage: UIImage(data: cameraModel.photo.originalData)!))
+                    ImageWithROI(viewModel: viewModel, image: UIImage(data: cameraModel.photo.originalData)!)
                 }
             }
             .onAppear {
-                model.safelyRestartSession()
+                cameraModel.safelyRestartSession()
             }
             .onDisappear {
-                model.safelyStopSession()
+                cameraModel.safelyStopSession()
             }
         }
     }
 }
 
-struct CameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraView()
-    }
-}
+//struct CameraView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CameraView()
+//    }
+//}

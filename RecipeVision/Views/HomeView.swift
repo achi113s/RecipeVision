@@ -5,13 +5,15 @@
 //  Created by Giorgio Latour on 9/3/23.
 //
 
+import PhotosUI
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var viewModel: ViewModel = ViewModel()
     @StateObject private var visionModel: VisionViewModel = VisionViewModel()
     
-    @State private var presentCameraView: Bool = false
-    @State private var presentPhotosPicker: Bool = false
+    @State private var selectedPhoto: PhotosPickerItem? = nil
+    @State private var selectedImage: UIImage? = nil
     
     var body: some View {
         NavigationStack {
@@ -30,7 +32,7 @@ struct HomeView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu {
                             Button {
-                                presentCameraView = true
+                                viewModel.presentCameraView = true
                             } label: {
                                 HStack {
                                     Text("Take a Picture")
@@ -39,7 +41,7 @@ struct HomeView: View {
                             }
 
                             Button {
-                                presentPhotosPicker = true
+                                viewModel.presentPhotosPicker = true
                             } label: {
                                 HStack {
                                     Text("Select from Photos")
@@ -66,11 +68,23 @@ struct HomeView: View {
                 }
             }
             .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
-            .sheet(isPresented: $presentCameraView) {
-                CameraView()
+            .sheet(isPresented: $viewModel.presentCameraView) {
+                CameraView(viewModel: viewModel)
             }
-            .sheet(isPresented: $presentPhotosPicker) {
-                ImagePicker()
+            .photosPicker(isPresented: $viewModel.presentPhotosPicker, selection: $selectedPhoto, photoLibrary: .shared())
+            .onChange(of: selectedPhoto) { newPhoto in
+                Task {
+                    if let data = try? await newPhoto?.loadTransferable(type: Data.self) {
+                        if let uiImage = UIImage(data: data) {
+//                            let image = Image(uiImage: uiImage)
+                            selectedImage = uiImage
+                            viewModel.presentImageROI = true
+                        }
+                    }
+                }
+            }
+            .sheet(isPresented: $viewModel.presentImageROI) {
+                ImageWithROI(viewModel: viewModel, image: selectedImage!)
             }
         }
         .environmentObject(visionModel)

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ImageWithROI: View {
+    @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var visionModel: VisionViewModel
     @Environment(\.dismiss) var dismiss
-    var image: Image
+    var image: UIImage
     
     @State private var width: CGFloat = 100
     @State private var height: CGFloat = 100
@@ -69,7 +70,7 @@ struct ImageWithROI: View {
                 .padding(.horizontal)
             
             ZStack {
-                image
+                Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
                     .overlay {
@@ -109,8 +110,10 @@ struct ImageWithROI: View {
             
             Button {
                 print(CGRect(origin: CGPoint(x: location.x, y: location.y), size: CGSize(width: width, height: height)))
-                print(convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: width, height: height), imageSize: imageSize))
-                visionModel.setImageToProcess(image)
+                let roi = convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: width, height: height), imageSize: imageSize)
+                print(roi)
+                visionModel.setImageToProcess(image, roi: roi)
+                viewModel.presentCameraView = false
                 dismiss()
             } label: {
                 ZStack {
@@ -161,8 +164,8 @@ struct ImageWithROI: View {
     }
 }
 
-struct ImageWithROI_Previews: PreviewProvider {
-    static var previews: some View {
-        ImageWithROI(image: Image("choonsik"))
-    }
-}
+//struct ImageWithROI_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ImageWithROI(image: Image("choonsik"))
+//    }
+//}

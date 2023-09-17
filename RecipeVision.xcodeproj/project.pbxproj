@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */; };
+		444313102AB6175E00488F5B /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4443130F2AB6175E00488F5B /* test.swift */; };
+		444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* ViewModel.swift */; };
+		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
 		44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */; };
 		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
 		44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577562AB380CD004E5D43 /* ImagePicker.swift */; };
@@ -49,6 +52,9 @@
 
 /* Begin PBXFileReference section */
 		442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreferenceKey.swift; sourceTree = "<group>"; };
+		4443130F2AB6175E00488F5B /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		444313112AB6AA6F00488F5B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
 		44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewModel.swift; sourceTree = "<group>"; };
 		44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image-Extensions.swift"; sourceTree = "<group>"; };
 		44A577562AB380CD004E5D43 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -99,6 +105,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		444313132AB6AACB00488F5B /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				444313142AB6AAD600488F5B /* ViewKinds.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		44518BE52AAC02A000AC615F /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +176,7 @@
 			children = (
 				44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */,
 				44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */,
+				444313112AB6AA6F00488F5B /* ViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -193,9 +208,11 @@
 				44518BE52AAC02A000AC615F /* Views */,
 				44DC37562AAA7FAE0095E985 /* ViewModels */,
 				44D5CCFE2AAD029B00215EFB /* CameraService */,
+				444313132AB6AACB00488F5B /* Enums */,
 				44DC374F2AA989BD0095E985 /* Extensions */,
 				44E6995D2AA588A60071742C /* Assets.xcassets */,
 				44E6995F2AA588A60071742C /* Preview Content */,
+				4443130F2AB6175E00488F5B /* test.swift */,
 			);
 			path = RecipeVision;
 			sourceTree = "<group>";
@@ -360,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44D5CD072AAD02A400215EFB /* CameraService.swift in Sources */,
+				444313102AB6175E00488F5B /* test.swift in Sources */,
 				44E6995C2AA588A50071742C /* HomeView.swift in Sources */,
 				44D5CD052AAD02A400215EFB /* CameraService+Enums.swift in Sources */,
 				44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */,
@@ -368,8 +386,10 @@
 				44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */,
 				44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */,
 				44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */,
+				444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */,
 				44D5CD062AAD02A400215EFB /* PhotoCaptureProcessor.swift in Sources */,
 				44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */,
+				444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */,
 				44DC37472AA8261E0095E985 /* ContentIsEmptyView.swift in Sources */,
 				44D5CD0A2AAD02E000215EFB /* CameraPreview.swift in Sources */,
 				44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */,
