@@ -15,6 +15,7 @@
 		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
 		44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577562AB380CD004E5D43 /* ImagePicker.swift */; };
 		44B612682AB75B5D00D0CC1A /* test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B612672AB75B5D00D0CC1A /* test2.swift */; };
+		44B6126B2AB7674600D0CC1A /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 44B6126A2AB7674600D0CC1A /* OpenAIKit */; };
 		44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */; };
 		44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFC2AACEA9A00215EFB /* CameraView.swift */; };
 		44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */; };
@@ -87,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44B6126B2AB7674600D0CC1A /* OpenAIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +264,7 @@
 			);
 			name = RecipeVision;
 			packageProductDependencies = (
+				44B6126A2AB7674600D0CC1A /* OpenAIKit */,
 			);
 			productName = RecipeVision;
 			productReference = 44E699562AA588A50071742C /* RecipeVision.app */;
@@ -336,6 +339,7 @@
 			);
 			mainGroup = 44E6994D2AA588A50071742C;
 			packageReferences = (
+				44B612692AB7674600D0CC1A /* XCRemoteSwiftPackageReference "openai-kit" */,
 			);
 			productRefGroup = 44E699572AA588A50071742C /* Products */;
 			projectDirPath = "";
@@ -721,6 +725,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		44B612692AB7674600D0CC1A /* XCRemoteSwiftPackageReference "openai-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dylanshine/openai-kit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		44B6126A2AB7674600D0CC1A /* OpenAIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44B612692AB7674600D0CC1A /* XCRemoteSwiftPackageReference "openai-kit" */;
+			productName = OpenAIKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44E6994E2AA588A50071742C /* Project object */;
 }
