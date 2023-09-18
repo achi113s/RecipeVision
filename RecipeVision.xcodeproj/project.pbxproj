@@ -8,16 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */; };
-		444313102AB6175E00488F5B /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4443130F2AB6175E00488F5B /* test.swift */; };
 		444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* ViewModel.swift */; };
 		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
 		449123742AB7A595001D8993 /* ChatGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449123732AB7A595001D8993 /* ChatGPT.swift */; };
 		44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */; };
 		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
 		44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577562AB380CD004E5D43 /* ImagePicker.swift */; };
-		44B612682AB75B5D00D0CC1A /* test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B612672AB75B5D00D0CC1A /* test2.swift */; };
 		44B612712AB76D5E00D0CC1A /* OpenAIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B612702AB76D5E00D0CC1A /* OpenAIViewModel.swift */; };
-		44B612742AB7A15700D0CC1A /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 44B612732AB7A15700D0CC1A /* OpenAISwift */; };
 		44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */; };
 		44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFC2AACEA9A00215EFB /* CameraView.swift */; };
 		44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */; };
@@ -56,14 +53,13 @@
 
 /* Begin PBXFileReference section */
 		442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreferenceKey.swift; sourceTree = "<group>"; };
-		4443130F2AB6175E00488F5B /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		444313112AB6AA6F00488F5B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
 		449123732AB7A595001D8993 /* ChatGPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPT.swift; sourceTree = "<group>"; };
 		44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewModel.swift; sourceTree = "<group>"; };
 		44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image-Extensions.swift"; sourceTree = "<group>"; };
 		44A577562AB380CD004E5D43 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		44B612672AB75B5D00D0CC1A /* test2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test2.swift; sourceTree = "<group>"; };
+		44B3A33C2AB7FB8600C76328 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		44B612702AB76D5E00D0CC1A /* OpenAIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIViewModel.swift; sourceTree = "<group>"; };
 		44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		44D5CCFC2AACEA9A00215EFB /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -92,7 +88,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44B612742AB7A15700D0CC1A /* OpenAISwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +189,7 @@
 		44E6994D2AA588A50071742C = {
 			isa = PBXGroup;
 			children = (
+				44B3A33C2AB7FB8600C76328 /* Config.xcconfig */,
 				44E699582AA588A50071742C /* RecipeVision */,
 				44E699692AA588A60071742C /* RecipeVisionTests */,
 				44E699732AA588A60071742C /* RecipeVisionUITests */,
@@ -222,8 +218,6 @@
 				44DC374F2AA989BD0095E985 /* Extensions */,
 				44E6995D2AA588A60071742C /* Assets.xcassets */,
 				44E6995F2AA588A60071742C /* Preview Content */,
-				4443130F2AB6175E00488F5B /* test.swift */,
-				44B612672AB75B5D00D0CC1A /* test2.swift */,
 			);
 			path = RecipeVision;
 			sourceTree = "<group>";
@@ -270,7 +264,6 @@
 			);
 			name = RecipeVision;
 			packageProductDependencies = (
-				44B612732AB7A15700D0CC1A /* OpenAISwift */,
 			);
 			productName = RecipeVision;
 			productReference = 44E699562AA588A50071742C /* RecipeVision.app */;
@@ -345,7 +338,6 @@
 			);
 			mainGroup = 44E6994D2AA588A50071742C;
 			packageReferences = (
-				44B612722AB7A15700D0CC1A /* XCRemoteSwiftPackageReference "OpenAISwift" */,
 			);
 			productRefGroup = 44E699572AA588A50071742C /* Products */;
 			projectDirPath = "";
@@ -390,7 +382,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				44D5CD072AAD02A400215EFB /* CameraService.swift in Sources */,
-				444313102AB6175E00488F5B /* test.swift in Sources */,
 				44E6995C2AA588A50071742C /* HomeView.swift in Sources */,
 				44D5CD052AAD02A400215EFB /* CameraService+Enums.swift in Sources */,
 				44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */,
@@ -398,7 +389,6 @@
 				442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */,
 				44B612712AB76D5E00D0CC1A /* OpenAIViewModel.swift in Sources */,
 				44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */,
-				44B612682AB75B5D00D0CC1A /* test2.swift in Sources */,
 				44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */,
 				44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */,
 				444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */,
@@ -733,25 +723,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		44B612722AB7A15700D0CC1A /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		44B612732AB7A15700D0CC1A /* OpenAISwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44B612722AB7A15700D0CC1A /* XCRemoteSwiftPackageReference "OpenAISwift" */;
-			productName = OpenAISwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44E6994E2AA588A50071742C /* Project object */;
 }

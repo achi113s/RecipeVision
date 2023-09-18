@@ -13,11 +13,11 @@ class OpenAIViewModel: NSObject, ObservableObject {
     @Published var lastResponse: Ingredients? = nil
     
     private var apiKey: String {
-        ProcessInfo.processInfo.environment["OPENAI_API_KEY"]!
+        Bundle.main.infoDictionary?["OPENAI_API_KEY"] as! String
     }
     
     private var organization: String {
-        ProcessInfo.processInfo.environment["OPENAI_ORGANIZATION"]!
+        Bundle.main.infoDictionary?["OPENAI_ORGANIZATION"] as! String
     }
     
     func postMessage(content: String, role: String, model: String, temperature: Double = 0.7) async throws {
