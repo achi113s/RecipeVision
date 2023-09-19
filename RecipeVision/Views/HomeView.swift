@@ -30,7 +30,6 @@ struct HomeView: View {
                     ScrollView(.vertical) {
                         VStack {
                             if cards.ingredientCards.isEmpty {
-                                //                            if true {
                                 Text("Tap the camera icon to get started!")
                                     .font(.system(size: 30, weight: .semibold, design: .rounded))
                                     .foregroundColor(Color("AccentColor"))
@@ -39,11 +38,13 @@ struct HomeView: View {
                             } else {
                                 LazyVStack(alignment: .center) {
                                     ForEach(cards.ingredientCards, id: \.id) { ingredientCard in
-                                        CardView(ingredientCard: $cards.ingredientCards[cards.ingredientCards.firstIndex(of: ingredientCard)!])
+                                        CardView(ingredientCard: $cards.ingredientCards[
+                                            cards.ingredientCards.firstIndex(of: ingredientCard)!
+                                        ])
                                     }
                                 }
                                 .padding(.top, 20)
-                                .padding(.horizontal, 10)
+                                .padding(.horizontal, 20)
                             }
                         }
                     }

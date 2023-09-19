@@ -8,34 +8,16 @@
 import CoreHaptics
 import SwiftUI
 
+public enum HapticType {
+    case simpleSuccess
+    case longPressSuccess
+}
+
 class MyHapticEngine: ObservableObject {
     @Published var hapticEngine: CHHapticEngine? = nil
+    private var hapticEngineWasStopped: Bool = false
     
-    private func prepareHaptics() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
-            print("The device does not support haptics.")
-            return
-        }
-        
-        do {
-            hapticEngine = try CHHapticEngine()
-            try hapticEngine?.start()
-            print("haptic engine started")
-        } catch {
-            print("There was an error creating the haptic engine: \(error.localizedDescription)")
-        }
-    }
-    
-    public func playSuccessHaptic() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
-            print("The device does not support haptics.")
-            return
-        }
-        
-        if hapticEngine == nil {
-            prepareHaptics()
-        }
-        
+    lazy var simpleSuccessHapticEvent: [CHHapticEvent] = {
         var events = [CHHapticEvent]()
         
         let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1)
@@ -43,7 +25,68 @@ class MyHapticEngine: ObservableObject {
         let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
         events.append(event)
         
+        return events
+    }()
+    
+    lazy var longPressSuccessHapticEvent: [CHHapticEvent] = {
+        var events = [CHHapticEvent]()
+        
+        for i in stride(from: 0, to: 0.2, by: 0.1) {
+            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1)
+            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
+            let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: i)
+            events.append(event)
+        }
+        
+        return events
+    }()
+    
+    private func prepareHapticsSync() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
+            print("The device does not support haptics.")
+            return
+        }
+        
+        
+        
         do {
+            hapticEngine = try CHHapticEngine()
+            
+            hapticEngine?.stoppedHandler = { _ in
+                self.hapticEngineWasStopped = true
+            }
+            
+            try hapticEngine?.start()
+            print("haptic engine started")
+        } catch {
+            print("There was an error creating the haptic engine: \(error.localizedDescription)")
+        }
+    }
+    
+    public func playHaptic(_ hapticType: HapticType) {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
+            print("The device does not support haptics.")
+            return
+        }
+        
+        if hapticEngine == nil {
+            // when calling this for the first time, there is some lag due to using the synchronous start() method
+            prepareHapticsSync()
+        } else if hapticEngineWasStopped {
+            prepareHapticsSync()
+            hapticEngineWasStopped = false
+        }
+        
+        do {
+            var events: [CHHapticEvent] = []
+            
+            switch hapticType {
+            case .simpleSuccess:
+                events = simpleSuccessHapticEvent
+            case .longPressSuccess:
+                events = longPressSuccessHapticEvent
+            }
+            
             let pattern = try CHHapticPattern(events: events, parameters: [])
             let player = try hapticEngine?.makePlayer(with: pattern)
             try player?.start(atTime: 0)

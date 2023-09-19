@@ -36,6 +36,7 @@
 		44E6996B2AA588A60071742C /* RecipeVisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6996A2AA588A60071742C /* RecipeVisionTests.swift */; };
 		44E699752AA588A60071742C /* RecipeVisionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E699742AA588A60071742C /* RecipeVisionUITests.swift */; };
 		44E699772AA588A60071742C /* RecipeVisionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E699762AA588A60071742C /* RecipeVisionUITestsLaunchTests.swift */; };
+		44EEB91E2ABA0ED70002556E /* CardLongPressGestureState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EEB91D2ABA0ED70002556E /* CardLongPressGestureState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		44E699702AA588A60071742C /* RecipeVisionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeVisionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E699742AA588A60071742C /* RecipeVisionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeVisionUITests.swift; sourceTree = "<group>"; };
 		44E699762AA588A60071742C /* RecipeVisionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeVisionUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		44EEB91D2ABA0ED70002556E /* CardLongPressGestureState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLongPressGestureState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			children = (
 				44B3A3402AB8019D00C76328 /* CardView.swift */,
 				442E76632AB8F5B900B699D4 /* SwipeToCompleteTextView.swift */,
+				44EEB91D2ABA0ED70002556E /* CardLongPressGestureState.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				44B3A3412AB8019D00C76328 /* CardView.swift in Sources */,
 				44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */,
 				44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */,
+				44EEB91E2ABA0ED70002556E /* CardLongPressGestureState.swift in Sources */,
 				442E76642AB8F5B900B699D4 /* SwipeToCompleteTextView.swift in Sources */,
 				442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */,
 				44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */,
@@ -463,6 +467,7 @@
 /* Begin XCBuildConfiguration section */
 		44E699782AA588A60071742C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44B3A33C2AB7FB8600C76328 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -590,6 +595,7 @@
 				DEVELOPMENT_TEAM = E24P6RF94S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RecipeVision/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to the camera to take photos of recipes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -620,6 +626,7 @@
 				DEVELOPMENT_TEAM = E24P6RF94S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RecipeVision/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to the camera to take photos of recipes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

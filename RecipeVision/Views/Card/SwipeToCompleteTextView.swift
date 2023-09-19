@@ -36,7 +36,7 @@ struct SwipeToCompleteTextView: View {
                 if self.offset.width > 30 {
                     withAnimation(.easeInOut) {
                         complete.toggle()
-                        myHapticEngine.playSuccessHaptic()
+                        myHapticEngine.playHaptic(.simpleSuccess)
                     }
                 }
                 
