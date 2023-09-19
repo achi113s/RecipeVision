@@ -5,12 +5,14 @@
 //  Created by Giorgio Latour on 9/3/23.
 //
 
+import CoreHaptics
 import PhotosUI
 import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel: ViewModel = ViewModel()
     @StateObject private var visionModel: VisionViewModel = VisionViewModel()
+    @StateObject private var myHapticEngine: MyHapticEngine = MyHapticEngine()
     
     @State private var selectedPhoto: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
@@ -115,6 +117,7 @@ struct HomeView: View {
             }
         }
         .environmentObject(visionModel)
+        .environmentObject(myHapticEngine)
     }
 }
 

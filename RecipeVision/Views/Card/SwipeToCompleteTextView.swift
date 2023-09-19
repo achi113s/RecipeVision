@@ -5,11 +5,14 @@
 //  Created by Giorgio Latour on 9/18/23.
 //
 
+import CoreHaptics
 import SwiftUI
 
 struct SwipeToCompleteTextView: View {
+    @EnvironmentObject var myHapticEngine: MyHapticEngine
     @Binding private var complete: Bool
     
+    @State private var hapticEngine: CHHapticEngine?
     @State private var offset: CGSize = .zero
     
     private var text: String
@@ -33,6 +36,7 @@ struct SwipeToCompleteTextView: View {
                 if self.offset.width > 30 {
                     withAnimation(.easeInOut) {
                         complete.toggle()
+                        myHapticEngine.playSuccessHaptic()
                     }
                 }
                 
@@ -44,14 +48,15 @@ struct SwipeToCompleteTextView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             Text(text)
                 .animatableStrikethrough(complete, textColor: textColor, color: strikethroughColor)
+                .offset(offset)
+                .gesture(
+                    swipeToComplete
+                )
         }
-        .offset(offset)
-        .gesture(
-            swipeToComplete
-        )
+        // this causes several instances of the haptics engine to be created....
     }
     
     public func textColor(_ color: Color) -> SwipeToCompleteTextView {
@@ -78,13 +83,11 @@ extension Text {
                                  color: Color? = nil) -> some View {
         self
             .foregroundColor(textColor)
-            .overlay(alignment: .leading) {
+            .overlay(alignment:.leading) {
                 self
                     .foregroundColor(.clear)
-                    .strikethrough(isActive, pattern: pattern, color: color)
                     .strikethrough(isActive, color: color)
                     .scaleEffect(x: isActive ? 1 : 0, anchor: .leading)
-                    .scaleEffect(y: isActive ? 1 : 1, anchor: .leading)
             }
     }
 }
