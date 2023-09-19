@@ -12,6 +12,8 @@ struct ContentIsEmptyView: View {
         ZStack {
             Color("BackgroundColor")
                 .edgesIgnoringSafeArea(.all)
+            // Use geometry reader to get the size of the ZStack
+            // and force ScrollView to take up all that space.
             GeometryReader { geometry in
                 ScrollView(.vertical) {
                     VStack {

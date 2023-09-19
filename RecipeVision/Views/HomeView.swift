@@ -15,11 +15,38 @@ struct HomeView: View {
     @State private var selectedPhoto: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     
+    @StateObject private var cards: Cards = Cards()
+    
     var body: some View {
         NavigationStack {
-            VStack {
-                ContentIsEmptyView()
-            }
+            ZStack {
+                Color("BackgroundColor")
+                    .edgesIgnoringSafeArea(.all)
+                // Use geometry reader to get the size of the ZStack
+                // and force ScrollView to take up all that space.
+                GeometryReader { geometry in
+                    ScrollView(.vertical) {
+                        VStack {
+                            if cards.ingredientCards.isEmpty {
+                                //                            if true {
+                                Text("Tap the camera icon to get started!")
+                                    .font(.system(size: 30, weight: .semibold, design: .rounded))
+                                    .foregroundColor(Color("AccentColor"))
+                                    .frame(width: geometry.size.width)      // Make the scroll view full-width
+                                    .frame(minHeight: geometry.size.height) // Set the content’s min height to the parent.
+                            } else {
+                                LazyVStack(alignment: .center) {
+                                    ForEach(cards.ingredientCards, id: \.id) { ingredientCard in
+                                        CardView(ingredientCard: $cards.ingredientCards[cards.ingredientCards.firstIndex(of: ingredientCard)!])
+                                    }
+                                }
+                                .padding(.top, 20)
+                                .padding(.horizontal, 10)
+                            }
+                        }
+                    }
+                }
+            }  // ZStack
             .toolbar {
                 Group {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -39,7 +66,7 @@ struct HomeView: View {
                                     Image(systemName: "camera")
                                 }
                             }
-
+                            
                             Button {
                                 viewModel.presentPhotosPicker = true
                             } label: {
@@ -76,7 +103,7 @@ struct HomeView: View {
                 Task {
                     if let data = try? await newPhoto?.loadTransferable(type: Data.self) {
                         if let uiImage = UIImage(data: data) {
-//                            let image = Image(uiImage: uiImage)
+                            //                            let image = Image(uiImage: uiImage)
                             selectedImage = uiImage
                             viewModel.presentImageROI = true
                         }

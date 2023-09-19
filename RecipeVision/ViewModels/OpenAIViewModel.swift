@@ -10,7 +10,7 @@ import Foundation
 class OpenAIViewModel: NSObject, ObservableObject {
     private let completionsEndpoint = "https://api.openai.com/v1/chat/completions"
     
-    @Published var lastResponse: Ingredients? = nil
+    @Published var lastResponse: DecodedIngredients? = nil
     
     private var apiKey: String {
         Bundle.main.infoDictionary?["OPENAI_API_KEY"] as! String
@@ -42,7 +42,7 @@ class OpenAIViewModel: NSObject, ObservableObject {
             print(responseObject.choices[0].message.content)
             let ingredientJSONString = responseObject.choices[0].message.content
             if let ingredientJSON = ingredientJSONString.data(using: .utf8) {
-                lastResponse = try JSONDecoder().decode(Ingredients.self, from: ingredientJSON)
+                lastResponse = try JSONDecoder().decode(DecodedIngredients.self, from: ingredientJSON)
             }
             print(lastResponse ?? "")
         } catch {
@@ -85,6 +85,6 @@ struct CompletionRequest: Codable {
     let stream: Bool
 }
 
-struct Ingredients: Codable {
+struct DecodedIngredients: Codable {
     let ingredients: [String]
 }
