@@ -12,6 +12,7 @@
 		442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E76872AB949AF00B699D4 /* MyHapticEngine.swift */; };
 		444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* ViewModel.swift */; };
 		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
+		44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */; };
 		449123742AB7A595001D8993 /* ChatGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449123732AB7A595001D8993 /* ChatGPT.swift */; };
 		44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */; };
 		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
@@ -62,6 +63,7 @@
 		442E76872AB949AF00B699D4 /* MyHapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHapticEngine.swift; sourceTree = "<group>"; };
 		444313112AB6AA6F00488F5B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
+		44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text-Extensions.swift"; sourceTree = "<group>"; };
 		449123732AB7A595001D8993 /* ChatGPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPT.swift; sourceTree = "<group>"; };
 		44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewModel.swift; sourceTree = "<group>"; };
 		44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image-Extensions.swift"; sourceTree = "<group>"; };
@@ -130,9 +132,9 @@
 		44518BE52AAC02A000AC615F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				44B3A33F2AB8019100C76328 /* Card */,
 				44E6995B2AA588A50071742C /* HomeView.swift */,
 				44DC37462AA8261E0095E985 /* ContentIsEmptyView.swift */,
+				44B3A33F2AB8019100C76328 /* Card */,
 				446042332AB02ACD0058CE8A /* RegionOfInterestPhotoPreview */,
 				44D5CD0F2AAD05C700215EFB /* CameraView */,
 				44A577552AB380C2004E5D43 /* ImagePicker */,
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */,
+				44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */,
 				44B3A3452AB806E300C76328 /* IngredientCard.swift in Sources */,
 				44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */,
+				44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */,
 				442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */,
 				44B612712AB76D5E00D0CC1A /* OpenAIViewModel.swift in Sources */,
 				44B3A3412AB8019D00C76328 /* CardView.swift in Sources */,

@@ -14,12 +14,6 @@ class VisionViewModel: NSObject, ObservableObject {
     
     @Published var openAIViewModel = OpenAIViewModel()
     
-    //    @State private var ingredients: String? = nil {
-    //        didSet {
-    //            print("set ingredients to: \(ingredients)")
-    //        }
-    //    }
-    
     public func setImageToProcess(_ image: UIImage, roi: CGRect) {
         imageToProcess = image
         self.roi = roi

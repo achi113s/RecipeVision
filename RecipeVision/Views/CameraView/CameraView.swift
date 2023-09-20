@@ -24,7 +24,7 @@ struct CameraView: View {
             cameraModel.capturePhoto()
         }, label: {
             Circle()
-                .foregroundColor(.white)
+                .foregroundColor(Color("AccentColor"))
                 .frame(width: 80, height: 80, alignment: .center)
         })
     }

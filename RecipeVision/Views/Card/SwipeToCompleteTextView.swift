@@ -11,6 +11,7 @@ import SwiftUI
 struct SwipeToCompleteTextView: View {
     @EnvironmentObject var myHapticEngine: MyHapticEngine
     @Binding private var complete: Bool
+    @State private var progress: CGFloat = 0.0
     
     @State private var hapticEngine: CHHapticEngine?
     @State private var offset: CGSize = .zero
@@ -31,15 +32,33 @@ struct SwipeToCompleteTextView: View {
                 let limit: CGFloat = 100
                 let factor = 1 / (dragValue.translation.width / limit + 1)
                 self.offset.width = dragValue.translation.width * factor
+                
+                if !self.complete {
+                    self.progress = self.offset.width / limit
+                }
             }
             .onEnded { dragValue in
-                if self.offset.width > 30 {
+                // If full drag was completed.
+                if self.offset.width > 50 {
                     withAnimation(.easeInOut) {
                         complete.toggle()
+                        
+                        if self.complete {
+                            self.progress = 1.0
+                        } else {
+                            self.progress = 0.0
+                        }
+                        
                         myHapticEngine.playHaptic(.simpleSuccess)
+                    }
+                } else {
+                    withAnimation(.easeInOut) {
+                        self.progress = 0.0
                     }
                 }
                 
+                // Always return the text back to its original
+                // location.
                 withAnimation(.easeInOut) {
                     self.offset.width = .zero
                 }
@@ -50,7 +69,7 @@ struct SwipeToCompleteTextView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(text)
-                .animatableStrikethrough(complete, textColor: textColor, color: strikethroughColor)
+                .animatableStrikethroughProgressive(progress, textColor: textColor, color: strikethroughColor)
                 .offset(offset)
                 .gesture(
                     swipeToComplete
@@ -74,20 +93,4 @@ struct SwipeToCompleteTextView: View {
 
 #Preview {
     SwipeToCompleteTextView(complete: .constant(true), text: "Hello, World!")
-}
-
-extension Text {
-    func animatableStrikethrough(_ isActive: Bool = true,
-                                 pattern: Text.LineStyle.Pattern = .solid,
-                                 textColor: Color? = nil,
-                                 color: Color? = nil) -> some View {
-        self
-            .foregroundColor(textColor)
-            .overlay(alignment:.leading) {
-                self
-                    .foregroundColor(.clear)
-                    .strikethrough(isActive, color: color)
-                    .scaleEffect(x: isActive ? 1 : 0, anchor: .leading)
-            }
-    }
 }

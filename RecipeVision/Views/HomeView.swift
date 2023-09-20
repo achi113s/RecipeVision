@@ -106,7 +106,6 @@ struct HomeView: View {
                 Task {
                     if let data = try? await newPhoto?.loadTransferable(type: Data.self) {
                         if let uiImage = UIImage(data: data) {
-                            //                            let image = Image(uiImage: uiImage)
                             selectedImage = uiImage
                             viewModel.presentImageROI = true
                         }
