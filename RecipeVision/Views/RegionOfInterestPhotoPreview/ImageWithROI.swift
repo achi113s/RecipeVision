@@ -113,7 +113,7 @@ struct ImageWithROI: View {
                 print(CGRect(origin: CGPoint(x: location.x, y: location.y), size: CGSize(width: width, height: height)))
                 let roi = convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: width, height: height), imageSize: imageSize)
                 print(roi)
-                visionModel.setImageToProcess(image, roi: roi)
+//                visionModel.setImageToProcess(image, roi: roi)
                 viewModel.presentCameraView = false
                 dismiss()
             } label: {

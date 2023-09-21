@@ -10,10 +10,15 @@ import SwiftUI
 
 struct SwipeToCompleteTextView: View {
     @EnvironmentObject var myHapticEngine: MyHapticEngine
+    
     @Binding private var complete: Bool
+    
+    /*
+     Monitor the progress of the drag to perform
+     the strikethrough animation as you drag.
+     */
     @State private var progress: CGFloat = 0.0
     
-    @State private var hapticEngine: CHHapticEngine?
     @State private var offset: CGSize = .zero
     
     private var text: String
@@ -28,7 +33,11 @@ struct SwipeToCompleteTextView: View {
     var swipeToComplete: some Gesture {
         DragGesture()
             .onChanged { dragValue in
+                // Can only drag left to right.
                 guard dragValue.translation.width > 0 else { return }
+                
+                // Drag with resistance.
+                // Asymptotically limits drag offset.
                 let limit: CGFloat = 100
                 let factor = 1 / (dragValue.translation.width / limit + 1)
                 self.offset.width = dragValue.translation.width * factor
@@ -38,7 +47,8 @@ struct SwipeToCompleteTextView: View {
                 }
             }
             .onEnded { dragValue in
-                // If full drag was completed.
+                // If full drag was completed, toggle complete and
+                // set strikethrough accoordingly.
                 if self.offset.width > 50 {
                     withAnimation(.easeInOut) {
                         complete.toggle()
@@ -52,8 +62,15 @@ struct SwipeToCompleteTextView: View {
                         myHapticEngine.playHaptic(.simpleSuccess)
                     }
                 } else {
-                    withAnimation(.easeInOut) {
-                        self.progress = 0.0
+                    /*
+                     If the full drag wasn't completed and the item
+                     is not completed, set strikethrough progress
+                     back to zero.
+                     */
+                    if !complete {
+                        withAnimation(.easeInOut) {
+                            self.progress = 0.0
+                        }
                     }
                 }
                 

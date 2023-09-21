@@ -12,7 +12,10 @@
 		442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E76872AB949AF00B699D4 /* MyHapticEngine.swift */; };
 		444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* ViewModel.swift */; };
 		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
+		4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */; };
 		44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */; };
+		4489EE3E2ABB94F000683DB8 /* OpenAIResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */; };
+		4489EE422ABB99C900683DB8 /* OpenAIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489EE412ABB99C900683DB8 /* OpenAIError.swift */; };
 		449123742AB7A595001D8993 /* ChatGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449123732AB7A595001D8993 /* ChatGPT.swift */; };
 		44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */; };
 		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
@@ -63,7 +66,10 @@
 		442E76872AB949AF00B699D4 /* MyHapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHapticEngine.swift; sourceTree = "<group>"; };
 		444313112AB6AA6F00488F5B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
+		4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionModel.swift; sourceTree = "<group>"; };
 		44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text-Extensions.swift"; sourceTree = "<group>"; };
+		4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponseModels.swift; sourceTree = "<group>"; };
+		4489EE412ABB99C900683DB8 /* OpenAIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIError.swift; sourceTree = "<group>"; };
 		449123732AB7A595001D8993 /* ChatGPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPT.swift; sourceTree = "<group>"; };
 		44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewModel.swift; sourceTree = "<group>"; };
 		44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image-Extensions.swift"; sourceTree = "<group>"; };
@@ -151,6 +157,35 @@
 			path = RegionOfInterestPhotoPreview;
 			sourceTree = "<group>";
 		};
+		4462D5792ABB4D49002DAFE9 /* IngredientRecognition */ = {
+			isa = PBXGroup;
+			children = (
+				44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */,
+				44B612702AB76D5E00D0CC1A /* OpenAIViewModel.swift */,
+				4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */,
+				4489EE412ABB99C900683DB8 /* OpenAIError.swift */,
+			);
+			path = IngredientRecognition;
+			sourceTree = "<group>";
+		};
+		4489EE3F2ABB966900683DB8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				4462D5792ABB4D49002DAFE9 /* IngredientRecognition */,
+				442E76872AB949AF00B699D4 /* MyHapticEngine.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		4489EE402ABB968200683DB8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				44B3A3442AB806E300C76328 /* IngredientCard.swift */,
+				4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		44A577552AB380C2004E5D43 /* ImagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,10 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */,
-				44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */,
 				444313112AB6AA6F00488F5B /* ViewModel.swift */,
-				44B612702AB76D5E00D0CC1A /* OpenAIViewModel.swift */,
-				44B3A3442AB806E300C76328 /* IngredientCard.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -236,14 +268,15 @@
 			isa = PBXGroup;
 			children = (
 				44E699592AA588A50071742C /* RecipeVisionApp.swift */,
+				4489EE402ABB968200683DB8 /* Models */,
 				44518BE52AAC02A000AC615F /* Views */,
 				44DC37562AAA7FAE0095E985 /* ViewModels */,
+				4489EE3F2ABB966900683DB8 /* Managers */,
 				44D5CCFE2AAD029B00215EFB /* CameraService */,
 				444313132AB6AACB00488F5B /* Enums */,
 				44DC374F2AA989BD0095E985 /* Extensions */,
 				44E6995D2AA588A60071742C /* Assets.xcassets */,
 				44E6995F2AA588A60071742C /* Preview Content */,
-				442E76872AB949AF00B699D4 /* MyHapticEngine.swift */,
 			);
 			path = RecipeVision;
 			sourceTree = "<group>";
@@ -413,12 +446,14 @@
 				44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */,
 				44B3A3452AB806E300C76328 /* IngredientCard.swift in Sources */,
 				44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */,
+				4489EE422ABB99C900683DB8 /* OpenAIError.swift in Sources */,
 				44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */,
 				442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */,
 				44B612712AB76D5E00D0CC1A /* OpenAIViewModel.swift in Sources */,
 				44B3A3412AB8019D00C76328 /* CardView.swift in Sources */,
 				44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */,
 				44D5CCFB2AACEA4D00215EFB /* CameraViewModel.swift in Sources */,
+				4489EE3E2ABB94F000683DB8 /* OpenAIResponseModels.swift in Sources */,
 				44EEB91E2ABA0ED70002556E /* CardLongPressGestureState.swift in Sources */,
 				442E76642AB8F5B900B699D4 /* SwipeToCompleteTextView.swift in Sources */,
 				442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */,
@@ -431,6 +466,7 @@
 				44DC37472AA8261E0095E985 /* ContentIsEmptyView.swift in Sources */,
 				44D5CD0A2AAD02E000215EFB /* CameraPreview.swift in Sources */,
 				44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */,
+				4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */,
 				44D5CD082AAD02A400215EFB /* ImageResizer.swift in Sources */,
 				44E6995A2AA588A50071742C /* RecipeVisionApp.swift in Sources */,
 			);

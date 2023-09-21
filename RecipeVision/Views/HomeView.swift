@@ -26,28 +26,29 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
                 // Use geometry reader to get the size of the ZStack
                 // and force ScrollView to take up all that space.
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        VStack {
-                            if cards.ingredientCards.isEmpty {
-                                Text("Tap the camera icon to get started!")
-                                    .font(.system(size: 30, weight: .semibold, design: .rounded))
-                                    .foregroundColor(Color("AccentColor"))
-                                    .frame(width: geometry.size.width)      // Make the scroll view full-width
-                                    .frame(minHeight: geometry.size.height) // Set the content’s min height to the parent.
-                            } else {
-                                LazyVStack(alignment: .center) {
-                                    ForEach(cards.ingredientCards, id: \.id) { ingredientCard in
-                                        CardView(ingredientCard: $cards.ingredientCards[
-                                            cards.ingredientCards.firstIndex(of: ingredientCard)!
-                                        ])
-                                    }
+                ScrollView(.vertical) {
+                    VStack {
+                        if cards.ingredientCards.isEmpty {
+                            Text("Tap the camera icon to get started!")
+                                .font(.system(size: 30, weight: .semibold, design: .rounded))
+                                .foregroundColor(Color("AccentColor"))
+                                .frame(width: .infinity) // Make the scroll view full-width
+                                .frame(minHeight: 400) // Set the content’s min height to the parent.
+                        } else {
+                            LazyVStack(alignment: .center) {
+                                ForEach(cards.ingredientCards, id: \.id) { ingredientCard in
+                                    CardView(ingredientCard: $cards.ingredientCards[
+                                        cards.ingredientCards.firstIndex(of: ingredientCard)!
+                                    ])
                                 }
-                                .padding(.top, 20)
-                                .padding(.horizontal, 20)
                             }
+                            .padding(.top, 20)
+                            .padding(.horizontal, 20)
                         }
                     }
+                }
+                .refreshable {
+                    print("refresh")
                 }
             }  // ZStack
             .toolbar {
