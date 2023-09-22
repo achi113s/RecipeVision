@@ -11,13 +11,15 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel: ViewModel = ViewModel()
-    @StateObject private var visionModel: VisionViewModel = VisionViewModel()
+    @StateObject private var recognitionModel: RecognitionModel = RecognitionModel()
     @StateObject private var myHapticEngine: MyHapticEngine = MyHapticEngine()
     
     @State private var selectedPhoto: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     
     @StateObject private var cards: Cards = Cards()
+    
+    @State var showProgressView: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -49,6 +51,10 @@ struct HomeView: View {
                 }
                 .refreshable {
                     print("refresh")
+                }
+                
+                if recognitionModel.recognitionInProgress {
+                    RecognitionInProgressView(progress: recognitionModel.recognitionProgress)
                 }
             }  // ZStack
             .toolbar {
@@ -100,9 +106,11 @@ struct HomeView: View {
             }
             .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
             .sheet(isPresented: $viewModel.presentCameraView) {
-                CameraView(viewModel: viewModel)
+                CameraView()
             }
             .photosPicker(isPresented: $viewModel.presentPhotosPicker, selection: $selectedPhoto, photoLibrary: .shared())
+            // Present the ImageWithROI view after selecting a photo
+            // from PhotosPicker
             .onChange(of: selectedPhoto) { newPhoto in
                 Task {
                     if let data = try? await newPhoto?.loadTransferable(type: Data.self) {
@@ -114,10 +122,13 @@ struct HomeView: View {
                 }
             }
             .sheet(isPresented: $viewModel.presentImageROI) {
-                ImageWithROI(viewModel: viewModel, image: selectedImage!)
+                if let image = selectedImage {
+                    ImageWithROI(image: image)
+                }
             }
         }
-        .environmentObject(visionModel)
+        .environmentObject(viewModel)
+        .environmentObject(recognitionModel)
         .environmentObject(myHapticEngine)
     }
 }

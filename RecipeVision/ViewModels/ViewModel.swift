@@ -12,4 +12,5 @@ class ViewModel: NSObject, ObservableObject {
     @Published var presentCameraView: Bool = false
     @Published var presentPhotosPicker: Bool = false
     @Published var presentImageROI: Bool = false
+    @Published var presentRecognitionInProgress: Bool = false
 }

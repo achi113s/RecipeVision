@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ImageWithROI: View {
-    @ObservedObject var viewModel: ViewModel
-    @EnvironmentObject var visionModel: VisionViewModel
+    @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var recognitionModel: RecognitionModel
+    
     @Environment(\.dismiss) var dismiss
+    
     var image: UIImage
     
     @State private var width: CGFloat = 100
@@ -111,10 +113,14 @@ struct ImageWithROI: View {
             
             Button {
                 print(CGRect(origin: CGPoint(x: location.x, y: location.y), size: CGSize(width: width, height: height)))
-                let roi = convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: width, height: height), imageSize: imageSize)
+                
+                let roi = recognitionModel.convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: width, height: height), imageSize: imageSize)
                 print(roi)
-//                visionModel.setImageToProcess(image, roi: roi)
+                
+                recognitionModel.recognizeTextInImage(image: image, region: roi)
+                
                 viewModel.presentCameraView = false
+                
                 dismiss()
             } label: {
                 ZStack {
@@ -137,39 +143,10 @@ struct ImageWithROI: View {
         }
         .padding()
     }
-    
-    func convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: CGPoint, boxSize: CGSize, imageSize: CGSize) -> CGRect {
-        // Calculate the size of the region of interest normalized to the size of the input image.
-        let normalizedWidth = boxSize.width / imageSize.width
-        let normalizedHeight = boxSize.height / imageSize.height
-        print("normalizedWidth: \(normalizedWidth), normalizedHeight: \(normalizedHeight)")
-        
-        /*
-         Now calculate the x and y coordinate of the region of interest assuming the lower
-         left corner is the origin rather than the top left corner of the image.
-         The origin of the bounding box is in its top leading corner. So the x
-         is the same for the unnormalized and normalized regions.
-         For y, we need to calculate the
-         normalized coordinate of the lower left corner.
-         */
-        let newOriginX = max(boxLocation.x, 0)
-        let newOriginY = max(imageSize.height - (boxLocation.y + boxSize.height), 0)
-        print("newOriginX: \(newOriginX), newOriginY: \(newOriginY)")
-        
-        // Now normalize the new origin to the size of the input image.
-        let normalizedOriginX = newOriginX / imageSize.width
-        let normalizedOriginY = newOriginY / imageSize.height
-        print("normalizedOriginX: \(normalizedOriginX), normalizedOriginY: \(normalizedOriginY)")
-        
-        let finalROICGRect = CGRect(x: normalizedOriginX, y: normalizedOriginY, width: normalizedWidth, height: normalizedHeight)
-        print("final CGRect: \(finalROICGRect)")
-        return finalROICGRect
-    }
 }
 
 struct ImageWithROI_Previews: PreviewProvider {
-    static let viewModel = ViewModel()
     static var previews: some View {
-        ImageWithROI(viewModel: viewModel, image: UIImage(named: "choonsik")!)
+        ImageWithROI(image: UIImage(named: "choonsik")!)
     }
 }

@@ -10,6 +10,7 @@
 		442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */; };
 		442E76642AB8F5B900B699D4 /* SwipeToCompleteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E76632AB8F5B900B699D4 /* SwipeToCompleteTextView.swift */; };
 		442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E76872AB949AF00B699D4 /* MyHapticEngine.swift */; };
+		4430C24C2ABD013F00BCCE29 /* RecognitionInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */; };
 		444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* ViewModel.swift */; };
 		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
 		4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */; };
@@ -64,6 +65,7 @@
 		442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreferenceKey.swift; sourceTree = "<group>"; };
 		442E76632AB8F5B900B699D4 /* SwipeToCompleteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToCompleteTextView.swift; sourceTree = "<group>"; };
 		442E76872AB949AF00B699D4 /* MyHapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHapticEngine.swift; sourceTree = "<group>"; };
+		4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionInProgressView.swift; sourceTree = "<group>"; };
 		444313112AB6AA6F00488F5B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
 		4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionModel.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				446042332AB02ACD0058CE8A /* RegionOfInterestPhotoPreview */,
 				44D5CD0F2AAD05C700215EFB /* CameraView */,
 				44A577552AB380C2004E5D43 /* ImagePicker */,
+				4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */,
 				4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */,
 				44D5CD082AAD02A400215EFB /* ImageResizer.swift in Sources */,
+				4430C24C2ABD013F00BCCE29 /* RecognitionInProgressView.swift in Sources */,
 				44E6995A2AA588A50071742C /* RecipeVisionApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

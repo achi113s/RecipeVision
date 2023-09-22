@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CameraView: View {
-    @ObservedObject var viewModel: ViewModel
     @StateObject var cameraModel = CameraViewModel()
-    @EnvironmentObject var visionModel: VisionViewModel
+    
+    @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var recognitionModel: RecognitionModel
     
     @State private var currentZoomFactor: CGFloat = 1.0
     @State private var lastZoomFactor: CGFloat = 1.0
@@ -124,8 +125,7 @@ struct CameraView: View {
             }
             .navigationDestination(for: String.self) { view in
                 if view == "PhotoPreview" {
-//                    ImageWithROI(viewModel: viewModel, image: Image(uiImage: UIImage(data: cameraModel.photo.originalData)!))
-                    ImageWithROI(viewModel: viewModel, image: UIImage(data: cameraModel.photo.originalData)!)
+                    ImageWithROI(image: UIImage(data: cameraModel.photo.originalData)!)
                 }
             }
             .onAppear {
