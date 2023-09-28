@@ -54,7 +54,7 @@ struct HomeView: View {
                 }
                 
                 if recognitionModel.recognitionInProgress {
-                    RecognitionInProgressView(progress: recognitionModel.recognitionProgress)
+                    RecognitionInProgressView()
                 }
             }  // ZStack
             .toolbar {

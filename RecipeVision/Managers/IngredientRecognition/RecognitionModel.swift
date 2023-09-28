@@ -5,6 +5,7 @@
 //  Created by Giorgio Latour on 9/20/23.
 //
 
+import Combine
 import SwiftUI
 import Vision
 
@@ -12,14 +13,13 @@ import Vision
  This class manages calls to Vision for image-to-text
  recognition and also sends the output to ChatGPT
  for analysis and formatting.
-*/
-@MainActor class RecognitionModel: ObservableObject {
-//    private var visionModel: VisionViewModel = VisionViewModel()
-//    private var openAIModel: OpenAIViewModel = OpenAIViewModel()
+ */
+class RecognitionModel: ObservableObject {
+    let recognitionSessionQueue = DispatchQueue(label: K.recognitionSessionQueueName, qos: .userInitiated)
     
-    @Published var recognitionProgress: CGFloat = 0.0 {
+    @Published var progressMessage: String = "" {
         didSet {
-            print("Recognition in Progress: \(recognitionProgress)")
+            print("Recognition Progress Message Changed: \(progressMessage)")
         }
     }
     
@@ -29,23 +29,89 @@ import Vision
         }
     }
     
-    @Published var lastResultsFromVision: [String] = []
-    @Published var lastResponseFromChatGPT: DecodedIngredients? = nil
+    private var lastResultsFromVision: [String]? = nil {
+        didSet {
+            print(lastResultsFromVision)
+        }
+    }
+    
+    @Published var lastResponseFromChatGPT: OpenAIResponse? = nil {
+        didSet {
+            print(lastResponseFromChatGPT)
+        }
+    }
+    
+    @Published var lastTextFromChatGPT: DecodedIngredients? = nil {
+        didSet {
+            print(lastTextFromChatGPT)
+        }
+    }
+    
+    // ChatGPT Information
+    private let completionsEndpoint = "https://api.openai.com/v1/chat/completions"
+    
+    private var apiKey: String {
+        Bundle.main.infoDictionary?["OPENAI_API_KEY"] as! String
+    }
+    
+    private var organization: String {
+        Bundle.main.infoDictionary?["OPENAI_ORGANIZATION"] as! String
+    }
+    
+    private enum RecognitionProgressMessages: String {
+        case startingVision = "Recognizing ingredients..."
+        case parsingIngredients = "Parsing ingredients..."
+        case done = "Done!"
+    }
+    
+    private let separateIngredientsCompletion = """
+         Separate this ingredient list into an array of strings of its
+         components and output as a JSON object. The JSON object should
+         have the following format: {"ingredients": []}.
+         Here are the ingredients:
+        """
+    
+    // The public function for performing ingredients in an image.
+    public func recognizeIngredientsInImage(image: UIImage, region: CGRect) {
+        print("Setting recognitionInProgress to true and setting progressMessage")
+        print("Current Thread: \(Thread.current)")
+        recognitionInProgress = true
+        progressMessage = RecognitionProgressMessages.startingVision.rawValue
+        
+        recognitionSessionQueue.async { [weak self] in
+            self?.performImageToTextRecognition(on: image, inRegion: region)
+            
+            self?.processVisionText()
+            
+            do {
+                try self?.convertOpenAIResponseToIngredients()
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+        
+        //        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        //            self?.performImageToTextRecognition(on: image, inRegion: region)
+        //
+        //            self?.processVisionText()
+        //
+        //            do {
+        //                try self?.convertOpenAIResponseToIngredients()
+        //            } catch {
+        //                print("\(error.localizedDescription)")
+        //            }
+        //        }
+    }
 }
 
 //MARK: - Vision Image-to-Text Recognition Handlers
 extension RecognitionModel {
-    public func recognizeTextInImage(image: UIImage, region: CGRect) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.performImageToTextRecognition(on: image, inRegion: region)
-        }
-    }
-    
     // This will be performed on a background thread.
     private func performImageToTextRecognition(on image: UIImage,
-                                              inRegion region: CGRect = CGRect(x: 0, y: 0, width: 1.0, height: 1.0)) {
+                                               inRegion region: CGRect = CGRect(x: 0, y: 0, width: 1.0, height: 1.0)) {
         guard let cgImage = image.cgImage else { return }
         
+        print("Starting performImagetoTextRecognition.")
         print("Current Thread: \(Thread.current)")
         
         let myImageTextRequest = VNImageRequestHandler(cgImage: cgImage, orientation: .right)
@@ -67,11 +133,14 @@ extension RecognitionModel {
         
         
         do {
-            self.recognitionInProgress = true
+            print("Will try performing the recognize text request.")
+            print("Current Thread: \(Thread.current)")
             try myImageTextRequest.perform([request])
         } catch {
             print("Something went wrong: \(error.localizedDescription)")
         }
+        
+        print("Exiting performImagetoTextRecognition")
     }
     
     // Completion handler for the image text recognition request.
@@ -79,6 +148,8 @@ extension RecognitionModel {
     private func formatObservations(request: VNRequest, error: Error?) {
         // Retrieve the results of the request, which is an array of VNRecognizedTextObservation objects.
         guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
+        
+        print("Starting formatObservations.")
         print("Current Thread: \(Thread.current). Should not be main.")
         
         let results = observations.compactMap { observation in
@@ -89,29 +160,17 @@ extension RecognitionModel {
             
             return observation.topCandidates(1)[0].string
         }
+
+        print("Setting lastResultsFromVision.")
+        lastResultsFromVision = results
         
-        DispatchQueue.main.async { [weak self] in
-            self?.lastResultsFromVision = results
-            self?.recognitionInProgress = false
-        }
-        
-        // this shouldn't be in this class
-        //        Task {
-        //            print("getopenaicompletion called")
-        //            let content = """
-        //             Separate this ingredient list into an array of strings of its
-        //             components and output as a JSON object. The JSON object should
-        //             have the following format: {"ingredients": []}.
-        //             Here are the ingredients: \"\(ingredients)\"
-        //            """
-        //            try await openAIViewModel.postMessage(content: content, role: "system", model: Chat.chatgpt.rawValue)
-        //        }
+        print("Exiting formatObservations.")
     }
     
     private func myProgressHandler(request: VNRequest, progress: Double, error: Error?) {
-        DispatchQueue.main.async { [weak self] in
-            self?.recognitionProgress = CGFloat(progress)
-        }
+        //        DispatchQueue.main.async { [weak self] in
+        //            self?.recognitionProgress = CGFloat(progress)
+        //        }
     }
     
     public func convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: CGPoint, boxSize: CGSize, imageSize: CGSize) -> CGRect {
@@ -140,5 +199,93 @@ extension RecognitionModel {
         let finalROICGRect = CGRect(x: normalizedOriginX, y: normalizedOriginY, width: normalizedWidth, height: normalizedHeight)
         print("final CGRect: \(finalROICGRect)")
         return finalROICGRect
+    }
+}
+
+//MARK: - ChatGPT Ingredient Parsing and Formatting
+extension RecognitionModel {
+    // Process text that was output from Vision.
+    public func processVisionText() {
+        print("Starting processVisionText")
+        guard let ingredients = lastResultsFromVision?.joined(separator: " ") else {
+            print("lastResultsFromVision was empty. Exiting processVisionText")
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.progressMessage = RecognitionProgressMessages.parsingIngredients.rawValue
+        }
+        
+        let content = separateIngredientsCompletion + "\"\(ingredients)\""
+        
+        postMessageToCompletionsEndpoint(content: content, role: "system", model: Chat.chatgpt.rawValue)
+        print("Exiting processVisionText")
+    }
+    
+    // Post a message to OpenAI's Chat Completions API endpoint.
+    private func postMessageToCompletionsEndpoint(content: String, role: String, model: String, temperature: Double = 0.7) {
+        guard let url = URL(string: completionsEndpoint) else {
+            print("Bad URL")
+            return
+        }
+        
+        print("Starting postMessageToCompletionsEndpoint")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        
+        let message = Message(role: role, content: content)
+        let requestObject = CompletionRequest(model: model, max_tokens: 1000, messages: [message], temperature: temperature, stream: false)
+        let requestData = try? JSONEncoder().encode(requestObject)
+        request.httpBody = requestData
+        
+        let session = URLSession(configuration: .default)
+        
+        let task = session.dataTask(with: request) { [weak self] (data, response, error) in
+            if let error = error {
+                print("There was an error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data {
+                do {
+                    let responseObject = try JSONDecoder().decode(OpenAIResponse.self, from: data)
+                    
+                    self?.lastResponseFromChatGPT = responseObject
+                    print("set lastResponseFromChatGPT")
+                } catch {
+                    print("There was an error decoding the JSON object: \(error.localizedDescription)")
+                }
+            }
+        }
+        
+        task.resume()
+        print("Starting postMessageToCompletionsEndpoint")
+    }
+    
+    private func convertOpenAIResponseToIngredients() throws {
+        guard let response = lastResponseFromChatGPT else {
+            print("last response was nil")
+            return
+        }
+        let ingredientJSONString = response.choices[0].message.content
+        
+        // Try to convert the JSON string from ChatGPT into a JSON Data object.
+        guard let ingredientJSON = ingredientJSONString.data(using: .utf8) else { throw OpenAIError.badJSONString }
+        
+        // Try to decode the JSON object into a DecodedIngredients object.
+        let ingredientsObj = try JSONDecoder().decode(DecodedIngredients.self, from: ingredientJSON)
+        
+        lastTextFromChatGPT = ingredientsObj
+
+        DispatchQueue.main.async { [weak self] in
+            self?.progressMessage = RecognitionProgressMessages.done.rawValue
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.recognitionInProgress = false
+        }
     }
 }

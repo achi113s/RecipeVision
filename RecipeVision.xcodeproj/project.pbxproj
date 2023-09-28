@@ -41,6 +41,7 @@
 		44E6996B2AA588A60071742C /* RecipeVisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6996A2AA588A60071742C /* RecipeVisionTests.swift */; };
 		44E699752AA588A60071742C /* RecipeVisionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E699742AA588A60071742C /* RecipeVisionUITests.swift */; };
 		44E699772AA588A60071742C /* RecipeVisionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E699762AA588A60071742C /* RecipeVisionUITestsLaunchTests.swift */; };
+		44EADDF42AC48A28005C599B /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EADDF32AC48A28005C599B /* K.swift */; };
 		44EEB91E2ABA0ED70002556E /* CardLongPressGestureState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EEB91D2ABA0ED70002556E /* CardLongPressGestureState.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		44E699702AA588A60071742C /* RecipeVisionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeVisionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E699742AA588A60071742C /* RecipeVisionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeVisionUITests.swift; sourceTree = "<group>"; };
 		44E699762AA588A60071742C /* RecipeVisionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeVisionUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		44EADDF32AC48A28005C599B /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		44EEB91D2ABA0ED70002556E /* CardLongPressGestureState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLongPressGestureState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 			children = (
 				444313142AB6AAD600488F5B /* ViewKinds.swift */,
 				449123732AB7A595001D8993 /* ChatGPT.swift */,
+				44EADDF32AC48A28005C599B /* K.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */,
 				4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */,
 				44D5CD082AAD02A400215EFB /* ImageResizer.swift in Sources */,
+				44EADDF42AC48A28005C599B /* K.swift in Sources */,
 				4430C24C2ABD013F00BCCE29 /* RecognitionInProgressView.swift in Sources */,
 				44E6995A2AA588A50071742C /* RecipeVisionApp.swift in Sources */,
 			);

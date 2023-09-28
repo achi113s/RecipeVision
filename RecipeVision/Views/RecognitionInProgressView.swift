@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct RecognitionInProgressView: View {
-    @State var progress: CGFloat
+    @EnvironmentObject var recognitionModel: RecognitionModel
     
     var body: some View {
         VStack {
-            Text("\(progress)")
+            Text("\(recognitionModel.progressMessage)")
         }
         .padding(.vertical, 15)
         .padding(.horizontal, 30)
@@ -29,5 +29,5 @@ struct RecognitionInProgressView: View {
 }
 
 #Preview {
-    RecognitionInProgressView(progress: 0.0)
+    RecognitionInProgressView()
 }

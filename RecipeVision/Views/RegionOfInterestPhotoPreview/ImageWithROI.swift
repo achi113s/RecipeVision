@@ -117,7 +117,7 @@ struct ImageWithROI: View {
                 let roi = recognitionModel.convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: width, height: height), imageSize: imageSize)
                 print(roi)
                 
-                recognitionModel.recognizeTextInImage(image: image, region: roi)
+                recognitionModel.recognizeIngredientsInImage(image: image, region: roi)
                 
                 viewModel.presentCameraView = false
                 
