@@ -15,37 +15,19 @@ import Vision
  for analysis and formatting.
  */
 class RecognitionModel: ObservableObject {
-    let recognitionSessionQueue = DispatchQueue(label: K.recognitionSessionQueueName, qos: .userInitiated)
+    let recognitionSessionQueue = DispatchQueue(label: K.recognitionSessionQueueName, qos: .background)
     
-    @Published var progressMessage: String = "" {
-        didSet {
-            print("Recognition Progress Message Changed: \(progressMessage)")
-        }
-    }
+    @Published var progressMessage: String = ""
     
-    @Published var recognitionInProgress: Bool = false {
-        didSet{
-            print("Recognition is in Progress: \(recognitionInProgress)")
-        }
-    }
+    @Published var recognitionInProgress: Bool = false
     
-    private var lastResultsFromVision: [String]? = nil {
-        didSet {
-            print(lastResultsFromVision)
-        }
-    }
+    @Published var presentNewIngredients: Bool = false
     
-    @Published var lastResponseFromChatGPT: OpenAIResponse? = nil {
-        didSet {
-            print(lastResponseFromChatGPT)
-        }
-    }
+    private var lastResultsFromVision: [String]? = nil
     
-    @Published var lastTextFromChatGPT: DecodedIngredients? = nil {
-        didSet {
-            print(lastTextFromChatGPT)
-        }
-    }
+    private var lastResponseFromChatGPT: OpenAIResponse? = nil
+    
+    public var lastTextFromChatGPT: DecodedIngredients? = nil
     
     // ChatGPT Information
     private let completionsEndpoint = "https://api.openai.com/v1/chat/completions"
@@ -60,7 +42,9 @@ class RecognitionModel: ObservableObject {
     
     private enum RecognitionProgressMessages: String {
         case startingVision = "Recognizing ingredients..."
+        case doneWithVision = "Done recognizing ingredients!"
         case parsingIngredients = "Parsing ingredients..."
+        case doneParsingIngredients = "Done parsing ingredients!"
         case done = "Done!"
     }
     
@@ -73,34 +57,28 @@ class RecognitionModel: ObservableObject {
     
     // The public function for performing ingredients in an image.
     public func recognizeIngredientsInImage(image: UIImage, region: CGRect) {
-        print("Setting recognitionInProgress to true and setting progressMessage")
-        print("Current Thread: \(Thread.current)")
-        recognitionInProgress = true
-        progressMessage = RecognitionProgressMessages.startingVision.rawValue
-        
+        // Move to the recognitionSessionQueue.
         recognitionSessionQueue.async { [weak self] in
+            DispatchQueue.main.async { [weak self] in
+                // First set these two progress variables on main thread.
+                print("Setting recognitionInProgress to true and setting progressMessage")
+                print("Current Thread: \(Thread.current)")
+                self?.recognitionInProgress = true
+                self?.progressMessage = RecognitionProgressMessages.startingVision.rawValue
+            }
+            
             self?.performImageToTextRecognition(on: image, inRegion: region)
+        }
+                
+        recognitionSessionQueue.async { [weak self] in
+            DispatchQueue.main.async {
+                print("Setting progressMessage to parsing ingredients")
+                print("Current Thread: \(Thread.current)")
+                self?.progressMessage = RecognitionProgressMessages.parsingIngredients.rawValue
+            }
             
             self?.processVisionText()
-            
-            do {
-                try self?.convertOpenAIResponseToIngredients()
-            } catch {
-                print("\(error.localizedDescription)")
-            }
         }
-        
-        //        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-        //            self?.performImageToTextRecognition(on: image, inRegion: region)
-        //
-        //            self?.processVisionText()
-        //
-        //            do {
-        //                try self?.convertOpenAIResponseToIngredients()
-        //            } catch {
-        //                print("\(error.localizedDescription)")
-        //            }
-        //        }
     }
 }
 
@@ -160,7 +138,7 @@ extension RecognitionModel {
             
             return observation.topCandidates(1)[0].string
         }
-
+        
         print("Setting lastResultsFromVision.")
         lastResultsFromVision = results
         
@@ -212,10 +190,6 @@ extension RecognitionModel {
             return
         }
         
-        DispatchQueue.main.async { [weak self] in
-            self?.progressMessage = RecognitionProgressMessages.parsingIngredients.rawValue
-        }
-        
         let content = separateIngredientsCompletion + "\"\(ingredients)\""
         
         postMessageToCompletionsEndpoint(content: content, role: "system", model: Chat.chatgpt.rawValue)
@@ -259,10 +233,16 @@ extension RecognitionModel {
                     print("There was an error decoding the JSON object: \(error.localizedDescription)")
                 }
             }
+            
+            do {
+                try self?.convertOpenAIResponseToIngredients()
+            } catch {
+                print("\(error.localizedDescription)")
+            }
         }
         
         task.resume()
-        print("Starting postMessageToCompletionsEndpoint")
+        print("Exiting postMessageToCompletionsEndpoint")
     }
     
     private func convertOpenAIResponseToIngredients() throws {
@@ -270,6 +250,7 @@ extension RecognitionModel {
             print("last response was nil")
             return
         }
+        
         let ingredientJSONString = response.choices[0].message.content
         
         // Try to convert the JSON string from ChatGPT into a JSON Data object.
@@ -279,13 +260,16 @@ extension RecognitionModel {
         let ingredientsObj = try JSONDecoder().decode(DecodedIngredients.self, from: ingredientJSON)
         
         lastTextFromChatGPT = ingredientsObj
-
-        DispatchQueue.main.async { [weak self] in
-            self?.progressMessage = RecognitionProgressMessages.done.rawValue
-        }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+        DispatchQueue.main.async { [weak self] in
+            print("Setting progressMessage to done")
+            print("Current Thread: \(Thread.current)")
+            self?.progressMessage = RecognitionProgressMessages.done.rawValue
             self?.recognitionInProgress = false
+            
+            if self?.lastTextFromChatGPT != nil {
+                self?.presentNewIngredients = true
+            }
         }
     }
 }

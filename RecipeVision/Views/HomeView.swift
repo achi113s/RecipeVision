@@ -126,6 +126,9 @@ struct HomeView: View {
                     ImageWithROI(image: image)
                 }
             }
+            .sheet(isPresented: $recognitionModel.presentNewIngredients) {
+                NewIngredientsView(ingredients: recognitionModel.lastTextFromChatGPT!.ingredients)
+            }
         }
         .environmentObject(viewModel)
         .environmentObject(recognitionModel)

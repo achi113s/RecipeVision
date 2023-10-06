@@ -58,9 +58,7 @@ struct CardView: View {
                 .shadow(radius: 4)
                 .frame(maxWidth: .infinity)
         }
-        .gesture(
-            cardLongPressGesture
-        )
+        .highPriorityGesture(cardLongPressGesture)
         .scaleEffect(self.cardLongPressGestureState.isLongPressing ? cardPressedScale : CGSize(width: 1.0, height: 1.0), anchor: .center)
         .animation(.interpolatingSpring(stiffness: 300, damping: 10), value: self.cardLongPressGestureState.isLongPressing)
     }
