@@ -9,10 +9,11 @@ import SwiftUI
 
 struct CardView: View {
     @EnvironmentObject var myHapticEngine: MyHapticEngine
+    @EnvironmentObject var viewModel: ViewModel
+    
     @Binding var ingredientCard: IngredientCard
     
     @GestureState private var cardLongPressGestureState = CardLongPressGestureState.inactive
-    @State private var completedLongPress: Bool = false
     
     private let cardPressedScale: CGSize = CGSize(width: 0.97, height: 0.97)
     private let minimumLongPressDuration: CGFloat = 1.0
@@ -25,6 +26,8 @@ struct CardView: View {
             })
             .onEnded { finished in
                 myHapticEngine.playHaptic(.longPressSuccess)
+                viewModel.presentConfirmationDialog = true
+                viewModel.selectedIngredientCard = ingredientCard
             }
     }
     
@@ -58,7 +61,7 @@ struct CardView: View {
                 .shadow(radius: 4)
                 .frame(maxWidth: .infinity)
         }
-        .highPriorityGesture(cardLongPressGesture)
+        .gesture(cardLongPressGesture)
         .scaleEffect(self.cardLongPressGestureState.isLongPressing ? cardPressedScale : CGSize(width: 1.0, height: 1.0), anchor: .center)
         .animation(.interpolatingSpring(stiffness: 300, damping: 10), value: self.cardLongPressGestureState.isLongPressing)
     }

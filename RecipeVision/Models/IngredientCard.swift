@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class Cards: ObservableObject {
+class IngredientCards: ObservableObject {
     @Published var ingredientCards: [IngredientCard]
     
     init() {
@@ -25,12 +25,28 @@ class Cards: ObservableObject {
             )
         ]
     }
+    
+    public func addNewCard(_ newCard: IngredientCard) {
+        ingredientCards.append(newCard)
+    }
 }
 
 struct IngredientCard: Identifiable, Hashable {
     let id: UUID = UUID()
     let name: String
     var ingredients: [Ingredient]
+    
+    init(name: String = "Card Name", ingredients: [Ingredient]) {
+        self.name = name
+        self.ingredients = ingredients
+    }
+    
+    init(decodedIngredients: DecodedIngredients) {
+        self.name = "New Card"
+        self.ingredients = decodedIngredients.ingredients.map({ ingredientName in
+            return Ingredient(ingredientName)
+        })
+    }
 }
 
 struct Ingredient: Identifiable, Hashable {

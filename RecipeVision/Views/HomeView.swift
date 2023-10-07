@@ -17,7 +17,7 @@ struct HomeView: View {
     @State private var selectedPhoto: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     
-    @StateObject private var cards: Cards = Cards()
+    @StateObject private var cards: IngredientCards = IngredientCards()
     
     @State var showProgressView: Bool = false
     
@@ -127,7 +127,19 @@ struct HomeView: View {
                 }
             }
             .sheet(isPresented: $recognitionModel.presentNewIngredients) {
-                NewIngredientsView(ingredients: recognitionModel.lastTextFromChatGPT!.ingredients)
+                EditIngredientCardView(ingredientCard: recognitionModel.lastIngredientGroupFromChatGPT!)
+            }
+            .confirmationDialog("", isPresented: $viewModel.presentConfirmationDialog) {
+                Button  {
+                    viewModel.presentIngredientsView = true
+                } label: {
+                    Text("Edit Ingredients Card")
+                }
+            }
+            .sheet(isPresented: $viewModel.presentIngredientsView) {
+                if let selectedIngredientCard = viewModel.selectedIngredientCard {
+                    EditIngredientCardView(ingredientCard: selectedIngredientCard)
+                }
             }
         }
         .environmentObject(viewModel)

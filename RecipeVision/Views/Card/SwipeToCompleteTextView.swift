@@ -22,7 +22,7 @@ struct SwipeToCompleteTextView: View {
     @State private var offset: CGSize = .zero
     
     private var text: String
-    private var textColor: Color = .black
+    @State private var textColor: Color = .black
     private var strikethroughColor: Color = .black
     
     init(complete: Binding<Bool>, text: String) {
@@ -76,10 +76,9 @@ struct SwipeToCompleteTextView: View {
                 
                 // Always return the text back to its original
                 // location.
-                withAnimation(.easeInOut) {
+                withAnimation(.easeInOut(duration: 0.5)) {
                     self.offset.width = .zero
                 }
-                
             }
     }
     

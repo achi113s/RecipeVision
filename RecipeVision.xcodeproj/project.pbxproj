@@ -13,7 +13,7 @@
 		4430C24C2ABD013F00BCCE29 /* RecognitionInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */; };
 		444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* ViewModel.swift */; };
 		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
-		444B58772AC8AE2E001EA383 /* NewIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444B58762AC8AE2E001EA383 /* NewIngredientsView.swift */; };
+		444B58772AC8AE2E001EA383 /* EditIngredientCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */; };
 		4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */; };
 		44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */; };
 		4489EE3E2ABB94F000683DB8 /* OpenAIResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */; };
@@ -70,7 +70,7 @@
 		4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionInProgressView.swift; sourceTree = "<group>"; };
 		444313112AB6AA6F00488F5B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
-		444B58762AC8AE2E001EA383 /* NewIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIngredientsView.swift; sourceTree = "<group>"; };
+		444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIngredientCardView.swift; sourceTree = "<group>"; };
 		4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionModel.swift; sourceTree = "<group>"; };
 		44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text-Extensions.swift"; sourceTree = "<group>"; };
 		4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponseModels.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 				44D5CD0F2AAD05C700215EFB /* CameraView */,
 				44A577552AB380C2004E5D43 /* ImagePicker */,
 				4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */,
-				444B58762AC8AE2E001EA383 /* NewIngredientsView.swift */,
+				444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -469,7 +469,7 @@
 				44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */,
 				444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */,
 				44D5CD062AAD02A400215EFB /* PhotoCaptureProcessor.swift in Sources */,
-				444B58772AC8AE2E001EA383 /* NewIngredientsView.swift in Sources */,
+				444B58772AC8AE2E001EA383 /* EditIngredientCardView.swift in Sources */,
 				44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */,
 				449123742AB7A595001D8993 /* ChatGPT.swift in Sources */,
 				444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */,

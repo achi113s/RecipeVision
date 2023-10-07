@@ -27,7 +27,7 @@ class RecognitionModel: ObservableObject {
     
     private var lastResponseFromChatGPT: OpenAIResponse? = nil
     
-    public var lastTextFromChatGPT: DecodedIngredients? = nil
+    public var lastIngredientGroupFromChatGPT: IngredientCard? = nil
     
     // ChatGPT Information
     private let completionsEndpoint = "https://api.openai.com/v1/chat/completions"
@@ -257,9 +257,11 @@ extension RecognitionModel {
         guard let ingredientJSON = ingredientJSONString.data(using: .utf8) else { throw OpenAIError.badJSONString }
         
         // Try to decode the JSON object into a DecodedIngredients object.
-        let ingredientsObj = try JSONDecoder().decode(DecodedIngredients.self, from: ingredientJSON)
+        let decodedIngredientsObj = try JSONDecoder().decode(DecodedIngredients.self, from: ingredientJSON)
         
-        lastTextFromChatGPT = ingredientsObj
+        let ingredientsGroup = IngredientCard(decodedIngredients: decodedIngredientsObj)
+        
+        lastIngredientGroupFromChatGPT = ingredientsGroup
         
         DispatchQueue.main.async { [weak self] in
             print("Setting progressMessage to done")
@@ -267,7 +269,7 @@ extension RecognitionModel {
             self?.progressMessage = RecognitionProgressMessages.done.rawValue
             self?.recognitionInProgress = false
             
-            if self?.lastTextFromChatGPT != nil {
+            if self?.lastIngredientGroupFromChatGPT != nil {
                 self?.presentNewIngredients = true
             }
         }
