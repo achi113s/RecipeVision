@@ -95,7 +95,7 @@ struct SwipeToCompleteTextView: View {
     }
     
     public func textColor(_ color: Color) -> SwipeToCompleteTextView {
-        var view = self
+        let view = self
         view.textColor = color
         return view
     }

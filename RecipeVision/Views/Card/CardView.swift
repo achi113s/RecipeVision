@@ -35,15 +35,15 @@ struct CardView: View {
         VStack(alignment: .leading, spacing: 15) {
             Text(ingredientCard.name)
                 .font(.system(size: 24, weight: .semibold, design: .rounded))
-                .foregroundColor(Color("AccentColor"))
+//                .foregroundColor(Color("AccentColor"))
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(ingredientCard.ingredients, id: \.id) { ingredient in
                     HStack(alignment: .center) {
                         SwipeToCompleteTextView(
                             complete: $ingredientCard.ingredients[ingredientCard.ingredients.firstIndex(of: ingredient)!].complete,
                             text: ingredient.name)
-                        .textColor(Color("AccentColor"))
-                        .strikethroughColor(Color("AccentColor"))
+//                        .textColor(Color("AccentColor"))
+//                        .strikethroughColor(Color("AccentColor"))
                         .font(.system(size: 17, weight: .semibold, design: .rounded))
                     }
                 }
@@ -57,7 +57,7 @@ struct CardView: View {
         }
         .background {
             RoundedRectangle(cornerRadius: 25)
-                .fill(Color("CardBackground"))
+                .fill(Color.white)
                 .shadow(radius: 4)
                 .frame(maxWidth: .infinity)
         }

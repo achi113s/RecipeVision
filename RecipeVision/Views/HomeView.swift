@@ -24,8 +24,8 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("BackgroundColor")
-                    .edgesIgnoringSafeArea(.all)
+//                Color("BackgroundColor")
+//                    .edgesIgnoringSafeArea(.all)
                 // Use geometry reader to get the size of the ZStack
                 // and force ScrollView to take up all that space.
                 ScrollView(.vertical) {
@@ -33,7 +33,7 @@ struct HomeView: View {
                         if cards.ingredientCards.isEmpty {
                             Text("Tap the camera icon to get started!")
                                 .font(.system(size: 30, weight: .semibold, design: .rounded))
-                                .foregroundColor(Color("AccentColor"))
+//                                .foregroundColor(Color("AccentColor"))
                                 .frame(width: .infinity) // Make the scroll view full-width
                                 .frame(minHeight: 400) // Set the content’s min height to the parent.
                         } else {
@@ -63,7 +63,7 @@ struct HomeView: View {
                         Text("RecipeVision")
                             .multilineTextAlignment(.center)
                             .font(.system(size: 32, weight: .semibold, design: .rounded))
-                            .foregroundColor(Color("AccentColor"))
+//                            .foregroundColor(Color("AccentColor"))
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -88,7 +88,7 @@ struct HomeView: View {
                         } label: {
                             Image(systemName: "camera.on.rectangle")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(Color("AccentColor"))
+//                                .foregroundColor(Color("AccentColor"))
                                 .accessibilityLabel("Get an picture of ingredients")
                         }
                     }
@@ -99,7 +99,7 @@ struct HomeView: View {
                         } label: {
                             Image(systemName: "gear")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(Color("AccentColor"))
+//                                .foregroundColor(Color("AccentColor"))
                         }
                     }
                 }
