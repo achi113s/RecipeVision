@@ -65,11 +65,17 @@ struct EditIngredientCardView: View {
         ingredients.remove(atOffsets: offsets)
     }
     
-    init(ingredientCard: IngredientCard) {
-        self._ingredients = State(initialValue: ingredientCard.ingredients.map({ ingredient in
-            return ingredient.name
-        }))
-        self._title = State(initialValue: ingredientCard.name)
+    init(ingredientCard: IngredientCard?) {
+        if let safeIngredientCard = ingredientCard {
+            self._ingredients = State(initialValue: safeIngredientCard.ingredients.map({ ingredient in
+                return ingredient.name
+            }))
+            self._title = State(initialValue: safeIngredientCard.name)
+        } else {
+            self._ingredients = State(initialValue: [String]())
+            self._title = State(initialValue: "")
+        }
+        
         self.editMode = .active
     }
 }

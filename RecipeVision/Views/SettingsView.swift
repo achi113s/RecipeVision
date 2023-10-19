@@ -15,6 +15,7 @@ struct SettingsView: View {
         VStack {
             Text("Settings View")
         }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Settings")
     }
 }

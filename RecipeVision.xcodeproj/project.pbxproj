@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44138F9B2AE1A2C200B22945 /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44138F9A2AE1A2C200B22945 /* Sheets.swift */; };
 		442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */; };
 		442E76642AB8F5B900B699D4 /* SwipeToCompleteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E76632AB8F5B900B699D4 /* SwipeToCompleteTextView.swift */; };
 		442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E76872AB949AF00B699D4 /* MyHapticEngine.swift */; };
@@ -16,7 +17,6 @@
 		4433FDB02AE0D39300667DD5 /* MyHapticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4433FDAF2AE0D39300667DD5 /* MyHapticType.swift */; };
 		4433FDB22AE0E84F00667DD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4433FDB12AE0E84F00667DD5 /* SettingsView.swift */; };
 		444313122AB6AA6F00488F5B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* MainViewModel.swift */; };
-		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
 		444B58772AC8AE2E001EA383 /* EditIngredientCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */; };
 		4462D57B2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462D57A2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift */; };
 		44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */; };
@@ -35,7 +35,6 @@
 		44D5CD072AAD02A400215EFB /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CD022AAD02A400215EFB /* CameraService.swift */; };
 		44D5CD082AAD02A400215EFB /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CD032AAD02A400215EFB /* ImageResizer.swift */; };
 		44D5CD0A2AAD02E000215EFB /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5CD092AAD02E000215EFB /* CameraPreview.swift */; };
-		44DC37472AA8261E0095E985 /* ContentIsEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DC37462AA8261E0095E985 /* ContentIsEmptyView.swift */; };
 		44DC375C2AABCDF80095E985 /* ImageWithROI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DC375B2AABCDF80095E985 /* ImageWithROI.swift */; };
 		44E6995A2AA588A50071742C /* RecipeVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E699592AA588A50071742C /* RecipeVisionApp.swift */; };
 		44E6995C2AA588A50071742C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6995B2AA588A50071742C /* HomeView.swift */; };
@@ -66,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44138F9A2AE1A2C200B22945 /* Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
 		442CD4142AB176C700C8356C /* ImagePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreferenceKey.swift; sourceTree = "<group>"; };
 		442E76632AB8F5B900B699D4 /* SwipeToCompleteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToCompleteTextView.swift; sourceTree = "<group>"; };
 		442E76872AB949AF00B699D4 /* MyHapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHapticEngine.swift; sourceTree = "<group>"; };
@@ -76,7 +76,6 @@
 		4433FDAF2AE0D39300667DD5 /* MyHapticType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHapticType.swift; sourceTree = "<group>"; };
 		4433FDB12AE0E84F00667DD5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		444313112AB6AA6F00488F5B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
 		444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIngredientCardView.swift; sourceTree = "<group>"; };
 		4462D57A2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRecognitionHandler.swift; sourceTree = "<group>"; };
 		44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text-Extensions.swift"; sourceTree = "<group>"; };
@@ -96,7 +95,6 @@
 		44D5CD022AAD02A400215EFB /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		44D5CD032AAD02A400215EFB /* ImageResizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
 		44D5CD092AAD02E000215EFB /* CameraPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
-		44DC37462AA8261E0095E985 /* ContentIsEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentIsEmptyView.swift; sourceTree = "<group>"; };
 		44DC375B2AABCDF80095E985 /* ImageWithROI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithROI.swift; sourceTree = "<group>"; };
 		44E699562AA588A50071742C /* RecipeVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E699592AA588A50071742C /* RecipeVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeVisionApp.swift; sourceTree = "<group>"; };
@@ -150,10 +148,10 @@
 			isa = PBXGroup;
 			children = (
 				44D5CD002AAD02A400215EFB /* CameraService+Enums.swift */,
-				444313142AB6AAD600488F5B /* ViewKinds.swift */,
 				449123732AB7A595001D8993 /* ChatGPT.swift */,
 				44EADDF32AC48A28005C599B /* K.swift */,
 				4433FDAF2AE0D39300667DD5 /* MyHapticType.swift */,
+				44138F9A2AE1A2C200B22945 /* Sheets.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -162,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				44E6995B2AA588A50071742C /* HomeView.swift */,
-				44DC37462AA8261E0095E985 /* ContentIsEmptyView.swift */,
 				44B3A33F2AB8019100C76328 /* Card */,
 				446042332AB02ACD0058CE8A /* RegionOfInterestPhotoPreview */,
 				44D5CD0F2AAD05C700215EFB /* CameraView */,
@@ -477,13 +474,12 @@
 				442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */,
 				4433FDAA2AE0BE5E00667DD5 /* CoreDataController.swift in Sources */,
 				444313122AB6AA6F00488F5B /* MainViewModel.swift in Sources */,
+				44138F9B2AE1A2C200B22945 /* Sheets.swift in Sources */,
 				44D5CD062AAD02A400215EFB /* PhotoCaptureProcessor.swift in Sources */,
 				444B58772AC8AE2E001EA383 /* EditIngredientCardView.swift in Sources */,
 				44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */,
 				449123742AB7A595001D8993 /* ChatGPT.swift in Sources */,
-				444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */,
 				4433FDB02AE0D39300667DD5 /* MyHapticType.swift in Sources */,
-				44DC37472AA8261E0095E985 /* ContentIsEmptyView.swift in Sources */,
 				44D5CD0A2AAD02E000215EFB /* CameraPreview.swift in Sources */,
 				44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */,
 				4462D57B2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift in Sources */,

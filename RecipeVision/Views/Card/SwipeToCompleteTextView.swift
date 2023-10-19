@@ -91,7 +91,6 @@ struct SwipeToCompleteTextView: View {
                     swipeToComplete
                 )
         }
-        // this causes several instances of the haptics engine to be created....
     }
     
     public func textColor(_ color: Color) -> SwipeToCompleteTextView {

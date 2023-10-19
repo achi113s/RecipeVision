@@ -114,26 +114,25 @@ struct ImageWithROI: View {
             Button {
                 print(CGRect(origin: CGPoint(x: location.x, y: location.y), size: CGSize(width: boundingBoxWidth, height: boundingBoxHeight)))
                 
-                let roi = textRecognitionModel.convertBoundingBoxToNormalizedBoxForVisionROI(boxLocation: location, boxSize: CGSize(width: boundingBoxWidth, height: boundingBoxHeight), imageSize: imageSize)
+                let roi = textRecognitionModel.convertBoundingBoxToNormalizedBoxForVisionROI(
+                    boxLocation: location, boxSize: CGSize(width: boundingBoxWidth, height: boundingBoxHeight), 
+                    imageSize: imageSize)
+                
                 print(roi)
                 
                 textRecognitionModel.recognizeIngredientsInImage(image: image, region: roi)
                 
-                mainViewModel.presentCameraView = false
+                mainViewModel.sheet = nil
                 
                 dismiss()
             } label: {
                 ZStack {
-//                    Capsule()
-//                        .foregroundColor(.green.opacity(0.8))
-//                        .frame(width: 140, height: 50)
-                    
                     HStack (spacing: 5) {
                         Image(systemName: "sparkle.magnifyingglass")
                             .tint(.white)
 //                            .foregroundColor(Color("AccentColor"))
                         Text("Identify")
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .font(.system(size: 24, weight: .semibold, design: .rounded))
                             .tint(.white)
 //                            .foregroundColor(Color("AccentColor"))
                     }

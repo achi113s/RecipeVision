@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct RecognitionInProgressView: View {
-//    @EnvironmentObject var recognitionModel: IngredientRecognitionHandler
+    @EnvironmentObject var textRecognitionModel: IngredientRecognitionHandler
     
     @State private var animate: Bool = false
     
     var body: some View {
         VStack {
-//            Text("\(recognitionModel.progressMessage)")
-            Text("Recognition in Progress")
+            Text("\(textRecognitionModel.progressMessage)")
+//            Text("Recognition in Progress")
                 .opacity(animate ? 1.0 : 0.2)
         }
         .padding(.vertical, 15)

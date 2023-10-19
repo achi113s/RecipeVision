@@ -30,7 +30,7 @@ struct HomeView: View {
                 // and force ScrollView to take up all that space.
                 ScrollView(.vertical) {
                     VStack {
-                        if !cards.ingredientCards.isEmpty {
+                        if cards.ingredientCards.isEmpty {
                             Text("Tap the camera icon to get started!")
                                 .font(.system(size: 30, weight: .semibold, design: .rounded))
 //                                .foregroundColor(Color("AccentColor"))
@@ -69,7 +69,7 @@ struct HomeView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu {
                             Button {
-                                mainViewModel.presentCameraView = true
+                                mainViewModel.sheet = .cameraView
                             } label: {
                                 HStack {
                                     Text("Take a Picture")
@@ -104,45 +104,33 @@ struct HomeView: View {
                     }
                 }
             }
-            .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
+//            .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
             .navigationDestination(for: String.self) { destination in
                 if destination == "Settings" {
                     SettingsView(path: $mainViewModel.path)
                 }
             }
-            .sheet(isPresented: $mainViewModel.presentCameraView) {
-                CameraView()
+            .sheet(item: $mainViewModel.sheet, content: makeSheet)
+            .sheet(isPresented: $textRecognitionModel.presentNewIngredients) {
+                EditIngredientCardView(ingredientCard: textRecognitionModel.lastIngredientGroupFromChatGPT)
             }
-            .photosPicker(isPresented: $mainViewModel.presentPhotosPicker, 
-                          selection: $selectedPhoto, photoLibrary: .shared())
             // Present the ImageWithROI view after selecting a photo
             // from PhotosPicker
+            .photosPicker(isPresented: $mainViewModel.presentPhotosPicker,
+                          selection: $selectedPhoto, photoLibrary: .shared())
             .onChange(of: selectedPhoto) { newPhoto in
                 Task {
                     if let data = try? await newPhoto?.loadTransferable(type: Data.self) {
                         if let uiImage = UIImage(data: data) {
                             selectedImage = uiImage
-                            mainViewModel.presentImageROI = true
+                            mainViewModel.sheet = .imageROI
                         }
                     }
                 }
             }
-            .sheet(isPresented: $mainViewModel.presentImageROI) {
-                if let image = selectedImage {
-                    ImageWithROI(image: image)
-                }
-            }
-            .sheet(isPresented: $textRecognitionModel.presentNewIngredients) {
-                EditIngredientCardView(ingredientCard: textRecognitionModel.lastIngredientGroupFromChatGPT!)
-            }
-            .sheet(isPresented: $mainViewModel.presentIngredientsView) {
-                if let selectedIngredientCard = mainViewModel.selectedIngredientCard {
-                    EditIngredientCardView(ingredientCard: selectedIngredientCard)
-                }
-            }
             .confirmationDialog("", isPresented: $mainViewModel.presentConfirmationDialog) {
                 Button  {
-                    mainViewModel.presentIngredientsView = true
+                    mainViewModel.sheet = .ingredients
                 } label: {
                     Text("Edit Ingredients Card")
                 }
@@ -151,6 +139,21 @@ struct HomeView: View {
         .environmentObject(mainViewModel)
         .environmentObject(textRecognitionModel)
         .environmentObject(myHapticEngine)
+    }
+    
+    @ViewBuilder private func makeSheet(_ sheet: Sheets) -> some View {
+        switch sheet {
+        case .cameraView:
+            CameraView()
+        case .imageROI:
+            if let image = selectedImage {
+                ImageWithROI(image: image)
+            }
+        case .ingredients:
+            if let selectedIngredientCard = mainViewModel.selectedIngredientCard {
+                EditIngredientCardView(ingredientCard: selectedIngredientCard)
+            }
+        }
     }
 }
 
