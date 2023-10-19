@@ -10,8 +10,8 @@ import SwiftUI
 struct CameraView: View {
     @StateObject var cameraModel = CameraViewModel()
     
-    @EnvironmentObject var viewModel: ViewModel
-    @EnvironmentObject var recognitionModel: RecognitionModel
+    @EnvironmentObject var mainViewModel: MainViewModel
+    @EnvironmentObject var recognitionModel: IngredientRecognitionHandler
     
     @State private var currentZoomFactor: CGFloat = 1.0
     @State private var lastZoomFactor: CGFloat = 1.0

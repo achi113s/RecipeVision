@@ -14,19 +14,15 @@ import Vision
  recognition and also sends the output to ChatGPT
  for analysis and formatting.
  */
-class RecognitionModel: ObservableObject {
+class IngredientRecognitionHandler: ObservableObject {
     let recognitionSessionQueue = DispatchQueue(label: K.recognitionSessionQueueName, qos: .background)
     
     @Published var progressMessage: String = ""
-    
     @Published var recognitionInProgress: Bool = false
-    
     @Published var presentNewIngredients: Bool = false
     
     private var lastResultsFromVision: [String]? = nil
-    
     private var lastResponseFromChatGPT: OpenAIResponse? = nil
-    
     public var lastIngredientGroupFromChatGPT: IngredientCard? = nil
     
     // ChatGPT Information
@@ -83,7 +79,7 @@ class RecognitionModel: ObservableObject {
 }
 
 //MARK: - Vision Image-to-Text Recognition Handlers
-extension RecognitionModel {
+extension IngredientRecognitionHandler {
     // This will be performed on a background thread.
     private func performImageToTextRecognition(on image: UIImage,
                                                inRegion region: CGRect = CGRect(x: 0, y: 0, width: 1.0, height: 1.0)) {
@@ -181,7 +177,7 @@ extension RecognitionModel {
 }
 
 //MARK: - ChatGPT Ingredient Parsing and Formatting
-extension RecognitionModel {
+extension IngredientRecognitionHandler {
     // Process text that was output from Vision.
     public func processVisionText() {
         print("Starting processVisionText")

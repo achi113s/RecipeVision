@@ -22,7 +22,7 @@ struct SwipeToCompleteTextView: View {
     @State private var offset: CGSize = .zero
     
     private var text: String
-    @State private var textColor: Color = .black
+    private var textColor: Color = .black
     private var strikethroughColor: Color = .black
     
     init(complete: Binding<Bool>, text: String) {
@@ -95,7 +95,7 @@ struct SwipeToCompleteTextView: View {
     }
     
     public func textColor(_ color: Color) -> SwipeToCompleteTextView {
-        let view = self
+        var view = self
         view.textColor = color
         return view
     }

@@ -10,8 +10,8 @@ import PhotosUI
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var viewModel: ViewModel = ViewModel()
-    @StateObject private var recognitionModel: RecognitionModel = RecognitionModel()
+    @StateObject private var mainViewModel: MainViewModel = MainViewModel()
+    @StateObject private var textRecognitionModel: IngredientRecognitionHandler = IngredientRecognitionHandler()
     @StateObject private var myHapticEngine: MyHapticEngine = MyHapticEngine()
     
     @State private var selectedPhoto: PhotosPickerItem? = nil
@@ -22,7 +22,7 @@ struct HomeView: View {
     @State var showProgressView: Bool = false
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $mainViewModel.path) {
             ZStack {
 //                Color("BackgroundColor")
 //                    .edgesIgnoringSafeArea(.all)
@@ -30,12 +30,12 @@ struct HomeView: View {
                 // and force ScrollView to take up all that space.
                 ScrollView(.vertical) {
                     VStack {
-                        if cards.ingredientCards.isEmpty {
+                        if !cards.ingredientCards.isEmpty {
                             Text("Tap the camera icon to get started!")
                                 .font(.system(size: 30, weight: .semibold, design: .rounded))
 //                                .foregroundColor(Color("AccentColor"))
-                                .frame(width: .infinity) // Make the scroll view full-width
-                                .frame(minHeight: 400) // Set the content’s min height to the parent.
+                                .frame(width: 300) // Make the scroll view full-width
+                                .frame(minHeight: 600) // Set the content’s min height to the parent.
                         } else {
                             LazyVStack(alignment: .center) {
                                 ForEach(cards.ingredientCards, id: \.id) { ingredientCard in
@@ -53,7 +53,7 @@ struct HomeView: View {
                     print("refresh")
                 }
                 
-                if recognitionModel.recognitionInProgress {
+                if textRecognitionModel.recognitionInProgress {
                     RecognitionInProgressView()
                 }
             }  // ZStack
@@ -69,7 +69,7 @@ struct HomeView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu {
                             Button {
-                                viewModel.presentCameraView = true
+                                mainViewModel.presentCameraView = true
                             } label: {
                                 HStack {
                                     Text("Take a Picture")
@@ -78,7 +78,7 @@ struct HomeView: View {
                             }
                             
                             Button {
-                                viewModel.presentPhotosPicker = true
+                                mainViewModel.presentPhotosPicker = true
                             } label: {
                                 HStack {
                                     Text("Select from Photos")
@@ -95,7 +95,7 @@ struct HomeView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            print("camera")
+                            mainViewModel.path.append("Settings")
                         } label: {
                             Image(systemName: "gear")
                                 .font(.system(size: 16, weight: .semibold))
@@ -105,10 +105,16 @@ struct HomeView: View {
                 }
             }
             .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
-            .sheet(isPresented: $viewModel.presentCameraView) {
+            .navigationDestination(for: String.self) { destination in
+                if destination == "Settings" {
+                    SettingsView(path: $mainViewModel.path)
+                }
+            }
+            .sheet(isPresented: $mainViewModel.presentCameraView) {
                 CameraView()
             }
-            .photosPicker(isPresented: $viewModel.presentPhotosPicker, selection: $selectedPhoto, photoLibrary: .shared())
+            .photosPicker(isPresented: $mainViewModel.presentPhotosPicker, 
+                          selection: $selectedPhoto, photoLibrary: .shared())
             // Present the ImageWithROI view after selecting a photo
             // from PhotosPicker
             .onChange(of: selectedPhoto) { newPhoto in
@@ -116,34 +122,34 @@ struct HomeView: View {
                     if let data = try? await newPhoto?.loadTransferable(type: Data.self) {
                         if let uiImage = UIImage(data: data) {
                             selectedImage = uiImage
-                            viewModel.presentImageROI = true
+                            mainViewModel.presentImageROI = true
                         }
                     }
                 }
             }
-            .sheet(isPresented: $viewModel.presentImageROI) {
+            .sheet(isPresented: $mainViewModel.presentImageROI) {
                 if let image = selectedImage {
                     ImageWithROI(image: image)
                 }
             }
-            .sheet(isPresented: $recognitionModel.presentNewIngredients) {
-                EditIngredientCardView(ingredientCard: recognitionModel.lastIngredientGroupFromChatGPT!)
+            .sheet(isPresented: $textRecognitionModel.presentNewIngredients) {
+                EditIngredientCardView(ingredientCard: textRecognitionModel.lastIngredientGroupFromChatGPT!)
             }
-            .confirmationDialog("", isPresented: $viewModel.presentConfirmationDialog) {
+            .sheet(isPresented: $mainViewModel.presentIngredientsView) {
+                if let selectedIngredientCard = mainViewModel.selectedIngredientCard {
+                    EditIngredientCardView(ingredientCard: selectedIngredientCard)
+                }
+            }
+            .confirmationDialog("", isPresented: $mainViewModel.presentConfirmationDialog) {
                 Button  {
-                    viewModel.presentIngredientsView = true
+                    mainViewModel.presentIngredientsView = true
                 } label: {
                     Text("Edit Ingredients Card")
                 }
             }
-            .sheet(isPresented: $viewModel.presentIngredientsView) {
-                if let selectedIngredientCard = viewModel.selectedIngredientCard {
-                    EditIngredientCardView(ingredientCard: selectedIngredientCard)
-                }
-            }
         }
-        .environmentObject(viewModel)
-        .environmentObject(recognitionModel)
+        .environmentObject(mainViewModel)
+        .environmentObject(textRecognitionModel)
         .environmentObject(myHapticEngine)
     }
 }

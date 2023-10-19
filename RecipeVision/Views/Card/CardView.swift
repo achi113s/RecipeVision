@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     @EnvironmentObject var myHapticEngine: MyHapticEngine
-    @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var viewModel: MainViewModel
     
     @Binding var ingredientCard: IngredientCard
     

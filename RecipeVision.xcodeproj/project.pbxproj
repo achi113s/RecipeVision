@@ -13,17 +13,17 @@
 		4430C24C2ABD013F00BCCE29 /* RecognitionInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */; };
 		4433FDAA2AE0BE5E00667DD5 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4433FDA92AE0BE5E00667DD5 /* CoreDataController.swift */; };
 		4433FDAE2AE0C9A400667DD5 /* RecipeVision.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4433FDAC2AE0C9A400667DD5 /* RecipeVision.xcdatamodeld */; };
-		444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* ViewModel.swift */; };
+		4433FDB02AE0D39300667DD5 /* MyHapticType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4433FDAF2AE0D39300667DD5 /* MyHapticType.swift */; };
+		4433FDB22AE0E84F00667DD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4433FDB12AE0E84F00667DD5 /* SettingsView.swift */; };
+		444313122AB6AA6F00488F5B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313112AB6AA6F00488F5B /* MainViewModel.swift */; };
 		444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444313142AB6AAD600488F5B /* ViewKinds.swift */; };
 		444B58772AC8AE2E001EA383 /* EditIngredientCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */; };
-		4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */; };
+		4462D57B2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462D57A2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift */; };
 		44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */; };
 		4489EE3E2ABB94F000683DB8 /* OpenAIResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */; };
 		4489EE422ABB99C900683DB8 /* OpenAIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489EE412ABB99C900683DB8 /* OpenAIError.swift */; };
 		449123742AB7A595001D8993 /* ChatGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449123732AB7A595001D8993 /* ChatGPT.swift */; };
-		44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */; };
 		44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */; };
-		44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A577562AB380CD004E5D43 /* ImagePicker.swift */; };
 		44B3A3412AB8019D00C76328 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3A3402AB8019D00C76328 /* CardView.swift */; };
 		44B3A3452AB806E300C76328 /* IngredientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B3A3442AB806E300C76328 /* IngredientCard.swift */; };
 		44B612712AB76D5E00D0CC1A /* OpenAIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B612702AB76D5E00D0CC1A /* OpenAIViewModel.swift */; };
@@ -73,17 +73,17 @@
 		4433FDA92AE0BE5E00667DD5 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		4433FDAB2AE0BFE100667DD5 /* RecipeVision.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeVision.entitlements; sourceTree = "<group>"; };
 		4433FDAD2AE0C9A400667DD5 /* RecipeVision.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecipeVision.xcdatamodel; sourceTree = "<group>"; };
-		444313112AB6AA6F00488F5B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		4433FDAF2AE0D39300667DD5 /* MyHapticType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHapticType.swift; sourceTree = "<group>"; };
+		4433FDB12AE0E84F00667DD5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		444313112AB6AA6F00488F5B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		444313142AB6AAD600488F5B /* ViewKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewKinds.swift; sourceTree = "<group>"; };
 		444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIngredientCardView.swift; sourceTree = "<group>"; };
-		4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionModel.swift; sourceTree = "<group>"; };
+		4462D57A2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRecognitionHandler.swift; sourceTree = "<group>"; };
 		44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text-Extensions.swift"; sourceTree = "<group>"; };
 		4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponseModels.swift; sourceTree = "<group>"; };
 		4489EE412ABB99C900683DB8 /* OpenAIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIError.swift; sourceTree = "<group>"; };
 		449123732AB7A595001D8993 /* ChatGPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPT.swift; sourceTree = "<group>"; };
-		44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionViewModel.swift; sourceTree = "<group>"; };
 		44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image-Extensions.swift"; sourceTree = "<group>"; };
-		44A577562AB380CD004E5D43 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		44B3A33C2AB7FB8600C76328 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		44B3A3402AB8019D00C76328 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		44B3A3442AB806E300C76328 /* IngredientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCard.swift; sourceTree = "<group>"; };
@@ -149,9 +149,11 @@
 		444313132AB6AACB00488F5B /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				44D5CD002AAD02A400215EFB /* CameraService+Enums.swift */,
 				444313142AB6AAD600488F5B /* ViewKinds.swift */,
 				449123732AB7A595001D8993 /* ChatGPT.swift */,
 				44EADDF32AC48A28005C599B /* K.swift */,
+				4433FDAF2AE0D39300667DD5 /* MyHapticType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -164,9 +166,9 @@
 				44B3A33F2AB8019100C76328 /* Card */,
 				446042332AB02ACD0058CE8A /* RegionOfInterestPhotoPreview */,
 				44D5CD0F2AAD05C700215EFB /* CameraView */,
-				44A577552AB380C2004E5D43 /* ImagePicker */,
 				4430C24B2ABD013F00BCCE29 /* RecognitionInProgressView.swift */,
 				444B58762AC8AE2E001EA383 /* EditIngredientCardView.swift */,
+				4433FDB12AE0E84F00667DD5 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,9 +185,8 @@
 		4462D5792ABB4D49002DAFE9 /* IngredientRecognition */ = {
 			isa = PBXGroup;
 			children = (
-				44A577512AB2C3A0004E5D43 /* VisionViewModel.swift */,
 				44B612702AB76D5E00D0CC1A /* OpenAIViewModel.swift */,
-				4462D57A2ABB4D64002DAFE9 /* RecognitionModel.swift */,
+				4462D57A2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift */,
 				4489EE412ABB99C900683DB8 /* OpenAIError.swift */,
 			);
 			path = IngredientRecognition;
@@ -200,21 +201,13 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		4489EE402ABB968200683DB8 /* Models */ = {
+		4489EE402ABB968200683DB8 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
 				44B3A3442AB806E300C76328 /* IngredientCard.swift */,
 				4489EE3D2ABB94F000683DB8 /* OpenAIResponseModels.swift */,
 			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		44A577552AB380C2004E5D43 /* ImagePicker */ = {
-			isa = PBXGroup;
-			children = (
-				44A577562AB380CD004E5D43 /* ImagePicker.swift */,
-			);
-			path = ImagePicker;
+			path = DataModels;
 			sourceTree = "<group>";
 		};
 		44B3A33F2AB8019100C76328 /* Card */ = {
@@ -231,8 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				44D5CD022AAD02A400215EFB /* CameraService.swift */,
-				44D5CD002AAD02A400215EFB /* CameraService+Enums.swift */,
-				44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */,
 				44D5CD032AAD02A400215EFB /* ImageResizer.swift */,
 				44D5CD012AAD02A400215EFB /* PhotoCaptureProcessor.swift */,
 			);
@@ -251,6 +242,7 @@
 		44DC374F2AA989BD0095E985 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				44D5CCFF2AAD02A400215EFB /* CameraService+Extensions.swift */,
 				44A577532AB2C4A0004E5D43 /* Image-Extensions.swift */,
 				44899C4D2ABA999500C4AB82 /* Text-Extensions.swift */,
 			);
@@ -261,7 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				44D5CCFA2AACEA4D00215EFB /* CameraViewModel.swift */,
-				444313112AB6AA6F00488F5B /* ViewModel.swift */,
+				444313112AB6AA6F00488F5B /* MainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -293,7 +285,7 @@
 				4433FDAB2AE0BFE100667DD5 /* RecipeVision.entitlements */,
 				4433FDA82AE0BE4E00667DD5 /* CoreData */,
 				44E699592AA588A50071742C /* RecipeVisionApp.swift */,
-				4489EE402ABB968200683DB8 /* Models */,
+				4489EE402ABB968200683DB8 /* DataModels */,
 				44518BE52AAC02A000AC615F /* Views */,
 				44DC37562AAA7FAE0095E985 /* ViewModels */,
 				4489EE3F2ABB966900683DB8 /* Managers */,
@@ -470,7 +462,7 @@
 				44D5CD052AAD02A400215EFB /* CameraService+Enums.swift in Sources */,
 				44D5CD042AAD02A400215EFB /* CameraService+Extensions.swift in Sources */,
 				44B3A3452AB806E300C76328 /* IngredientCard.swift in Sources */,
-				44A577522AB2C3A0004E5D43 /* VisionViewModel.swift in Sources */,
+				4433FDB22AE0E84F00667DD5 /* SettingsView.swift in Sources */,
 				4489EE422ABB99C900683DB8 /* OpenAIError.swift in Sources */,
 				44899C4E2ABA999500C4AB82 /* Text-Extensions.swift in Sources */,
 				442CD4152AB176C700C8356C /* ImagePreferenceKey.swift in Sources */,
@@ -484,17 +476,17 @@
 				442E76642AB8F5B900B699D4 /* SwipeToCompleteTextView.swift in Sources */,
 				442E76882AB949AF00B699D4 /* MyHapticEngine.swift in Sources */,
 				4433FDAA2AE0BE5E00667DD5 /* CoreDataController.swift in Sources */,
-				44A577572AB380CD004E5D43 /* ImagePicker.swift in Sources */,
-				444313122AB6AA6F00488F5B /* ViewModel.swift in Sources */,
+				444313122AB6AA6F00488F5B /* MainViewModel.swift in Sources */,
 				44D5CD062AAD02A400215EFB /* PhotoCaptureProcessor.swift in Sources */,
 				444B58772AC8AE2E001EA383 /* EditIngredientCardView.swift in Sources */,
 				44D5CCFD2AACEA9A00215EFB /* CameraView.swift in Sources */,
 				449123742AB7A595001D8993 /* ChatGPT.swift in Sources */,
 				444313152AB6AAD600488F5B /* ViewKinds.swift in Sources */,
+				4433FDB02AE0D39300667DD5 /* MyHapticType.swift in Sources */,
 				44DC37472AA8261E0095E985 /* ContentIsEmptyView.swift in Sources */,
 				44D5CD0A2AAD02E000215EFB /* CameraPreview.swift in Sources */,
 				44A577542AB2C4A0004E5D43 /* Image-Extensions.swift in Sources */,
-				4462D57B2ABB4D64002DAFE9 /* RecognitionModel.swift in Sources */,
+				4462D57B2ABB4D64002DAFE9 /* IngredientRecognitionHandler.swift in Sources */,
 				44D5CD082AAD02A400215EFB /* ImageResizer.swift in Sources */,
 				44EADDF42AC48A28005C599B /* K.swift in Sources */,
 				4430C24C2ABD013F00BCCE29 /* RecognitionInProgressView.swift in Sources */,

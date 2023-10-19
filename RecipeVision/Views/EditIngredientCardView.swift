@@ -15,8 +15,8 @@ struct EditIngredientCardView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
-                Color("BackgroundColor")
-                    .edgesIgnoringSafeArea(.all)
+//                Color("BackgroundColor")
+//                    .edgesIgnoringSafeArea(.all)
                 List {
                     Section {
                         TextField("Recipe Title", text: $title)
@@ -55,8 +55,8 @@ struct EditIngredientCardView: View {
                     }
                 }
                 .environment(\.editMode, $editMode)
-                .scrollContentBackground(.hidden)
-                .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
+//                .scrollContentBackground(.hidden)
+//                .toolbarBackground(Color("ToolbarBackground"), for: .automatic)
             }
         }
     }

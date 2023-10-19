@@ -8,11 +8,6 @@
 import CoreHaptics
 import SwiftUI
 
-public enum HapticType {
-    case simpleSuccess
-    case longPressSuccess
-}
-
 class MyHapticEngine: ObservableObject {
     @Published var hapticEngine: CHHapticEngine? = nil
     private var hapticEngineWasStopped: Bool = false
@@ -63,7 +58,7 @@ class MyHapticEngine: ObservableObject {
         }
     }
     
-    public func playHaptic(_ hapticType: HapticType) {
+    public func playHaptic(_ hapticType: MyHapticType) {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
             print("The device does not support haptics.")
             return
