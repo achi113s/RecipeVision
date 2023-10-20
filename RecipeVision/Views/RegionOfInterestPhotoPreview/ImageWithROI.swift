@@ -18,7 +18,7 @@ struct ImageWithROI: View {
     @State private var boundingBoxWidth: CGFloat = 100
     @State private var boundingBoxHeight: CGFloat = 100
     
-    @State private var location: CGPoint = .init(x: 200, y: 200)
+    @State private var location: CGPoint = .init(x: 0, y: 0)
     @State private var imageSize: CGSize = CGSize(width: 100, height: 100)
     
     @GestureState private var startLocation: CGPoint? = nil
@@ -102,7 +102,7 @@ struct ImageWithROI: View {
                                 )
                         }
                         .frame(width: boundingBoxWidth, height: boundingBoxHeight, alignment: .topLeading)
-                        .position(x: boundingBoxWidth / 2, y: boundingBoxHeight / 2)
+                        .position(x: location.x + boundingBoxWidth / 2, y: location.y + boundingBoxHeight / 2)
                         .gesture(
                             simpleDrag
                         )

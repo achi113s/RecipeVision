@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EditIngredientCardView: View {
+    @EnvironmentObject var coreDataController: CoreDataController
+    
     @State private var ingredients: [String]
     @State private var editMode: EditMode = .active
     @State private var title: String = "Name Your Ingredients"
@@ -46,7 +48,7 @@ struct EditIngredientCardView: View {
                     
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
-                            
+                            coreDataController.addCard(title: title, ingredients: ingredients)
                         } label: {
                             Text("Save")
                                 .fontDesign(.rounded)
@@ -65,32 +67,36 @@ struct EditIngredientCardView: View {
         ingredients.remove(atOffsets: offsets)
     }
     
-    init(ingredientCard: IngredientCard?) {
-        if let safeIngredientCard = ingredientCard {
-            self._ingredients = State(initialValue: safeIngredientCard.ingredients.map({ ingredient in
-                return ingredient.name
-            }))
-            self._title = State(initialValue: safeIngredientCard.name)
-        } else {
-            self._ingredients = State(initialValue: [String]())
-            self._title = State(initialValue: "")
-        }
+    init(ingredientCard: IngredientCard) {
+        let ingredientsList = ingredientCard.ingredientsArray.compactMap({ ingredient in
+            return ingredient.ingredient
+        })
+        
+        self._ingredients = State(initialValue: ingredientsList)
+        self._title = State(initialValue: ingredientCard.title ?? "")
+        
+        self.editMode = .active
+    }
+    
+    init(decodedIngredients: DecodedIngredients?) {
+        self._ingredients = State(initialValue: decodedIngredients?.ingredients ?? [])
+        self._title = State(initialValue: "New Ingredients")
         
         self.editMode = .active
     }
 }
 
-#Preview {
-    EditIngredientCardView(ingredientCard: IngredientCard(name: "Green Tea Ice Cream",
-                                                      ingredients: [
-                                                        Ingredient("1 cup (250ml) whole milk"),
-                                                        Ingredient("3/4 cup (150g) sugar"),
-                                                        Ingredient("pinch of kosher or sea salt"),
-                                                        Ingredient("2 cups (500ml) heavy cream"),
-                                                        Ingredient("4 teaspoons matche (green tea powder)"),
-                                                        Ingredient("6 large egg yolks"),
-                                                      ]))
-}
+//#Preview {
+//    EditIngredientCardView(ingredientCard: IngredientCard(name: "Green Tea Ice Cream",
+//                                                      ingredients: [
+//                                                        Ingredient("1 cup (250ml) whole milk"),
+//                                                        Ingredient("3/4 cup (150g) sugar"),
+//                                                        Ingredient("pinch of kosher or sea salt"),
+//                                                        Ingredient("2 cups (500ml) heavy cream"),
+//                                                        Ingredient("4 teaspoons matche (green tea powder)"),
+//                                                        Ingredient("6 large egg yolks"),
+//                                                      ]))
+//}
 
 //    NewIngredientsView(ingredients: [
 //        "½ cup heavy cream",

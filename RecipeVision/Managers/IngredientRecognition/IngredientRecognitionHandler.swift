@@ -23,7 +23,7 @@ class IngredientRecognitionHandler: ObservableObject {
     
     private var lastResultsFromVision: [String]? = nil
     private var lastResponseFromChatGPT: OpenAIResponse? = nil
-    public var lastIngredientGroupFromChatGPT: IngredientCard? = nil
+    public var lastIngredientGroupFromChatGPT: DecodedIngredients? = nil
     
     // ChatGPT Information
     private let completionsEndpoint = "https://api.openai.com/v1/chat/completions"
@@ -227,6 +227,7 @@ extension IngredientRecognitionHandler {
                     print("set lastResponseFromChatGPT")
                 } catch {
                     print("There was an error decoding the JSON object: \(error.localizedDescription)")
+                    print(data)
                 }
             }
             
@@ -255,9 +256,7 @@ extension IngredientRecognitionHandler {
         // Try to decode the JSON object into a DecodedIngredients object.
         let decodedIngredientsObj = try JSONDecoder().decode(DecodedIngredients.self, from: ingredientJSON)
         
-        let ingredientsGroup = IngredientCard(decodedIngredients: decodedIngredientsObj)
-        
-        lastIngredientGroupFromChatGPT = ingredientsGroup
+        lastIngredientGroupFromChatGPT = decodedIngredientsObj
         
         DispatchQueue.main.async { [weak self] in
             print("Setting progressMessage to done")

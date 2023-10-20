@@ -9,13 +9,14 @@ import SwiftUI
 
 @main
 struct RecipeVisionApp: App {
-//    @StateObject private var coreDataController = CoreDataController()
+    @StateObject private var coreDataController = CoreDataController()
     
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .preferredColorScheme(.light)
-//                .environment(\.managedObjectContext, coreDataController.persistentContainer.viewContext)
+                .environment(\.managedObjectContext, coreDataController.persistentContainer.viewContext)
+                .environmentObject(coreDataController)
         }
     }
 }

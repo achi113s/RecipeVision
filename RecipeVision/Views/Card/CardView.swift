@@ -33,18 +33,19 @@ struct CardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Text(ingredientCard.name)
+            Text(ingredientCard.title ?? "")
                 .font(.system(size: 24, weight: .semibold, design: .rounded))
 //                .foregroundColor(Color("AccentColor"))
             VStack(alignment: .leading, spacing: 10) {
-                ForEach(ingredientCard.ingredients, id: \.id) { ingredient in
+                ForEach(ingredientCard.ingredientsArray, id: \.id) { ingredient in
                     HStack(alignment: .center) {
-                        SwipeToCompleteTextView(
-                            complete: $ingredientCard.ingredients[ingredientCard.ingredients.firstIndex(of: ingredient)!].complete,
-                            text: ingredient.name)
-//                        .textColor(Color("AccentColor"))
-//                        .strikethroughColor(Color("AccentColor"))
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
+                        Text(ingredient.ingredient)
+//                        SwipeToCompleteTextView(
+//                            complete: $ingredientCard.ingredientsArray[ingredientCard.ingredientsArray.firstIndex(of: ingredient)!].complete,
+//                            text: ingredient.name)
+////                        .textColor(Color("AccentColor"))
+////                        .strikethroughColor(Color("AccentColor"))
+//                        .font(.system(size: 17, weight: .semibold, design: .rounded))
                     }
                 }
             }
@@ -71,18 +72,18 @@ struct CardView: View {
     }
 }
 
-#Preview {
-    CardView(ingredientCard: .constant(
-        IngredientCard(
-            name: "Green Tea Ice Cream",
-            ingredients: [
-                Ingredient("1 cup (250ml) whole milk"),
-                Ingredient("3/4 cup (150g) sugar"),
-                Ingredient("pinch of kosher or sea salt"),
-                Ingredient("2 cups (500ml) heavy cream"),
-                Ingredient("4 teaspoons matcha (green tea powder)"),
-                Ingredient("6 large egg yolks")
-            ]
-        )
-    ))
-}
+//#Preview {
+//    CardView(ingredientCard: .constant(
+//        IngredientCard(
+//            name: "Green Tea Ice Cream",
+//            ingredients: [
+//                Ingredient("1 cup (250ml) whole milk"),
+//                Ingredient("3/4 cup (150g) sugar"),
+//                Ingredient("pinch of kosher or sea salt"),
+//                Ingredient("2 cups (500ml) heavy cream"),
+//                Ingredient("4 teaspoons matcha (green tea powder)"),
+//                Ingredient("6 large egg yolks")
+//            ]
+//        )
+//    ))
+//}

@@ -5,19 +5,21 @@
 //  Created by Giorgio Latour on 9/3/23.
 //
 
+import CoreData
 import CoreHaptics
 import PhotosUI
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var coreDataController: CoreDataController
+    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
+    
     @StateObject private var mainViewModel: MainViewModel = MainViewModel()
     @StateObject private var textRecognitionModel: IngredientRecognitionHandler = IngredientRecognitionHandler()
     @StateObject private var myHapticEngine: MyHapticEngine = MyHapticEngine()
     
     @State private var selectedPhoto: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
-    
-    @StateObject private var cards: IngredientCards = IngredientCards()
     
     @State var showProgressView: Bool = false
     
@@ -30,7 +32,7 @@ struct HomeView: View {
                 // and force ScrollView to take up all that space.
                 ScrollView(.vertical) {
                     VStack {
-                        if cards.ingredientCards.isEmpty {
+                        if coreDataController.savedCards.isEmpty {
                             Text("Tap the camera icon to get started!")
                                 .font(.system(size: 30, weight: .semibold, design: .rounded))
 //                                .foregroundColor(Color("AccentColor"))
@@ -38,9 +40,9 @@ struct HomeView: View {
                                 .frame(minHeight: 600) // Set the content’s min height to the parent.
                         } else {
                             LazyVStack(alignment: .center) {
-                                ForEach(cards.ingredientCards, id: \.id) { ingredientCard in
-                                    CardView(ingredientCard: $cards.ingredientCards[
-                                        cards.ingredientCards.firstIndex(of: ingredientCard)!
+                                ForEach(coreDataController.savedCards, id: \.id) { ingredientCard in
+                                    CardView(ingredientCard: $coreDataController.savedCards[
+                                        coreDataController.savedCards.firstIndex(of: ingredientCard)!
                                     ])
                                 }
                             }
@@ -112,7 +114,7 @@ struct HomeView: View {
             }
             .sheet(item: $mainViewModel.sheet, content: makeSheet)
             .sheet(isPresented: $textRecognitionModel.presentNewIngredients) {
-                EditIngredientCardView(ingredientCard: textRecognitionModel.lastIngredientGroupFromChatGPT)
+                EditIngredientCardView(decodedIngredients: textRecognitionModel.lastIngredientGroupFromChatGPT)
             }
             // Present the ImageWithROI view after selecting a photo
             // from PhotosPicker
